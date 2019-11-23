@@ -23,7 +23,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include <entry.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -33,6 +33,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+#define LED_R_PIN    GET_PIN(C, 13)
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -60,13 +61,13 @@ PCD_HandleTypeDef hpcd_USB_FS;
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
-static void MX_DMA_Init(void);
+//static void MX_DMA_Init(void);
 static void MX_ADC1_Init(void);
 static void MX_I2C1_Init(void);
-static void MX_SPI1_Init(void);
-static void MX_USART1_UART_Init(void);
-static void MX_USART3_UART_Init(void);
-static void MX_USB_PCD_Init(void);
+//static void MX_SPI1_Init(void);
+//static void MX_USART1_UART_Init(void);
+//static void MX_USART3_UART_Init(void);
+//static void MX_USB_PCD_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -105,21 +106,35 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_DMA_Init();
+//  MX_DMA_Init();
   MX_ADC1_Init();
   MX_I2C1_Init();
-  MX_SPI1_Init();
-  MX_USART1_UART_Init();
-  MX_USART3_UART_Init();
-  MX_USB_PCD_Init();
+//  MX_SPI1_Init();
+//  MX_USART1_UART_Init();
+//  MX_USART3_UART_Init();
+//  MX_USB_PCD_Init();
   /* USER CODE BEGIN 2 */
-
+  rt_pin_mode(LED_R_PIN, PIN_MODE_OUTPUT);
+  rt_pin_write(LED_R_PIN, 1);
+  
+  rt_device_t dev = RT_NULL;
+  char buf[] = "hello RT-Thread!\r\n";
+  
+  dev = rt_device_find("vcom");
+  
+  if (dev)
+    rt_device_open(dev, RT_DEVICE_FLAG_RDWR);
+  else
+    return -RT_ERROR;
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+    rt_pin_write(LED_R_PIN, !rt_pin_read(LED_R_PIN));
+    rt_device_write(dev, 0, buf, rt_strlen(buf));
+    rt_thread_delay(500);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -280,151 +295,151 @@ static void MX_I2C1_Init(void)
   * @param None
   * @retval None
   */
-static void MX_SPI1_Init(void)
-{
-
-  /* USER CODE BEGIN SPI1_Init 0 */
-
-  /* USER CODE END SPI1_Init 0 */
-
-  /* USER CODE BEGIN SPI1_Init 1 */
-
-  /* USER CODE END SPI1_Init 1 */
-  /* SPI1 parameter configuration*/
-  hspi1.Instance = SPI1;
-  hspi1.Init.Mode = SPI_MODE_MASTER;
-  hspi1.Init.Direction = SPI_DIRECTION_2LINES;
-  hspi1.Init.DataSize = SPI_DATASIZE_8BIT;
-  hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
-  hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
-  hspi1.Init.NSS = SPI_NSS_SOFT;
-  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_8;
-  hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
-  hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
-  hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
-  hspi1.Init.CRCPolynomial = 10;
-  if (HAL_SPI_Init(&hspi1) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN SPI1_Init 2 */
-
-  /* USER CODE END SPI1_Init 2 */
-
-}
+//static void MX_SPI1_Init(void)
+//{
+//
+//  /* USER CODE BEGIN SPI1_Init 0 */
+//
+//  /* USER CODE END SPI1_Init 0 */
+//
+//  /* USER CODE BEGIN SPI1_Init 1 */
+//
+//  /* USER CODE END SPI1_Init 1 */
+//  /* SPI1 parameter configuration*/
+//  hspi1.Instance = SPI1;
+//  hspi1.Init.Mode = SPI_MODE_MASTER;
+//  hspi1.Init.Direction = SPI_DIRECTION_2LINES;
+//  hspi1.Init.DataSize = SPI_DATASIZE_8BIT;
+//  hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
+//  hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
+//  hspi1.Init.NSS = SPI_NSS_SOFT;
+//  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_8;
+//  hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
+//  hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
+//  hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
+//  hspi1.Init.CRCPolynomial = 10;
+//  if (HAL_SPI_Init(&hspi1) != HAL_OK)
+//  {
+//    Error_Handler();
+//  }
+//  /* USER CODE BEGIN SPI1_Init 2 */
+//
+//  /* USER CODE END SPI1_Init 2 */
+//
+//}
 
 /**
   * @brief USART1 Initialization Function
   * @param None
   * @retval None
   */
-static void MX_USART1_UART_Init(void)
-{
-
-  /* USER CODE BEGIN USART1_Init 0 */
-
-  /* USER CODE END USART1_Init 0 */
-
-  /* USER CODE BEGIN USART1_Init 1 */
-
-  /* USER CODE END USART1_Init 1 */
-  huart1.Instance = USART1;
-  huart1.Init.BaudRate = 115200;
-  huart1.Init.WordLength = UART_WORDLENGTH_8B;
-  huart1.Init.StopBits = UART_STOPBITS_1;
-  huart1.Init.Parity = UART_PARITY_NONE;
-  huart1.Init.Mode = UART_MODE_TX_RX;
-  huart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
-  huart1.Init.OverSampling = UART_OVERSAMPLING_16;
-  if (HAL_UART_Init(&huart1) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN USART1_Init 2 */
-
-  /* USER CODE END USART1_Init 2 */
-
-}
+//static void MX_USART1_UART_Init(void)
+//{
+//
+//  /* USER CODE BEGIN USART1_Init 0 */
+//
+//  /* USER CODE END USART1_Init 0 */
+//
+//  /* USER CODE BEGIN USART1_Init 1 */
+//
+//  /* USER CODE END USART1_Init 1 */
+//  huart1.Instance = USART1;
+//  huart1.Init.BaudRate = 115200;
+//  huart1.Init.WordLength = UART_WORDLENGTH_8B;
+//  huart1.Init.StopBits = UART_STOPBITS_1;
+//  huart1.Init.Parity = UART_PARITY_NONE;
+//  huart1.Init.Mode = UART_MODE_TX_RX;
+//  huart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+//  huart1.Init.OverSampling = UART_OVERSAMPLING_16;
+//  if (HAL_UART_Init(&huart1) != HAL_OK)
+//  {
+//    Error_Handler();
+//  }
+//  /* USER CODE BEGIN USART1_Init 2 */
+//
+//  /* USER CODE END USART1_Init 2 */
+//
+//}
 
 /**
   * @brief USART3 Initialization Function
   * @param None
   * @retval None
   */
-static void MX_USART3_UART_Init(void)
-{
-
-  /* USER CODE BEGIN USART3_Init 0 */
-
-  /* USER CODE END USART3_Init 0 */
-
-  /* USER CODE BEGIN USART3_Init 1 */
-
-  /* USER CODE END USART3_Init 1 */
-  huart3.Instance = USART3;
-  huart3.Init.BaudRate = 115200;
-  huart3.Init.WordLength = UART_WORDLENGTH_8B;
-  huart3.Init.StopBits = UART_STOPBITS_1;
-  huart3.Init.Parity = UART_PARITY_NONE;
-  huart3.Init.Mode = UART_MODE_TX_RX;
-  huart3.Init.HwFlowCtl = UART_HWCONTROL_NONE;
-  huart3.Init.OverSampling = UART_OVERSAMPLING_16;
-  if (HAL_UART_Init(&huart3) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN USART3_Init 2 */
-
-  /* USER CODE END USART3_Init 2 */
-
-}
+//static void MX_USART3_UART_Init(void)
+//{
+//
+//  /* USER CODE BEGIN USART3_Init 0 */
+//
+//  /* USER CODE END USART3_Init 0 */
+//
+//  /* USER CODE BEGIN USART3_Init 1 */
+//
+//  /* USER CODE END USART3_Init 1 */
+//  huart3.Instance = USART3;
+//  huart3.Init.BaudRate = 115200;
+//  huart3.Init.WordLength = UART_WORDLENGTH_8B;
+//  huart3.Init.StopBits = UART_STOPBITS_1;
+//  huart3.Init.Parity = UART_PARITY_NONE;
+//  huart3.Init.Mode = UART_MODE_TX_RX;
+//  huart3.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+//  huart3.Init.OverSampling = UART_OVERSAMPLING_16;
+//  if (HAL_UART_Init(&huart3) != HAL_OK)
+//  {
+//    Error_Handler();
+//  }
+//  /* USER CODE BEGIN USART3_Init 2 */
+//
+//  /* USER CODE END USART3_Init 2 */
+//
+//}
 
 /**
   * @brief USB Initialization Function
   * @param None
   * @retval None
   */
-static void MX_USB_PCD_Init(void)
-{
-
-  /* USER CODE BEGIN USB_Init 0 */
-
-  /* USER CODE END USB_Init 0 */
-
-  /* USER CODE BEGIN USB_Init 1 */
-
-  /* USER CODE END USB_Init 1 */
-  hpcd_USB_FS.Instance = USB;
-  hpcd_USB_FS.Init.dev_endpoints = 8;
-  hpcd_USB_FS.Init.speed = PCD_SPEED_FULL;
-  hpcd_USB_FS.Init.low_power_enable = DISABLE;
-  hpcd_USB_FS.Init.lpm_enable = DISABLE;
-  hpcd_USB_FS.Init.battery_charging_enable = DISABLE;
-  if (HAL_PCD_Init(&hpcd_USB_FS) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN USB_Init 2 */
-
-  /* USER CODE END USB_Init 2 */
-
-}
+//static void MX_USB_PCD_Init(void)
+//{
+//
+//  /* USER CODE BEGIN USB_Init 0 */
+//
+//  /* USER CODE END USB_Init 0 */
+//
+//  /* USER CODE BEGIN USB_Init 1 */
+//
+//  /* USER CODE END USB_Init 1 */
+//  hpcd_USB_FS.Instance = USB;
+//  hpcd_USB_FS.Init.dev_endpoints = 8;
+//  hpcd_USB_FS.Init.speed = PCD_SPEED_FULL;
+//  hpcd_USB_FS.Init.low_power_enable = DISABLE;
+//  hpcd_USB_FS.Init.lpm_enable = DISABLE;
+//  hpcd_USB_FS.Init.battery_charging_enable = DISABLE;
+//  if (HAL_PCD_Init(&hpcd_USB_FS) != HAL_OK)
+//  {
+//    Error_Handler();
+//  }
+//  /* USER CODE BEGIN USB_Init 2 */
+//
+//  /* USER CODE END USB_Init 2 */
+//
+//}
 
 /** 
   * Enable DMA controller clock
   */
-static void MX_DMA_Init(void) 
-{
-
-  /* DMA controller clock enable */
-  __HAL_RCC_DMA1_CLK_ENABLE();
-
-  /* DMA interrupt init */
-  /* DMA1_Channel5_IRQn interrupt configuration */
-  HAL_NVIC_SetPriority(DMA1_Channel5_IRQn, 0, 0);
-  HAL_NVIC_EnableIRQ(DMA1_Channel5_IRQn);
-
-}
+//static void MX_DMA_Init(void) 
+//{
+//
+//  /* DMA controller clock enable */
+//  __HAL_RCC_DMA1_CLK_ENABLE();
+//
+//  /* DMA interrupt init */
+//  /* DMA1_Channel5_IRQn interrupt configuration */
+//  HAL_NVIC_SetPriority(DMA1_Channel5_IRQn, 0, 0);
+//  HAL_NVIC_EnableIRQ(DMA1_Channel5_IRQn);
+//
+//}
 
 /**
   * @brief GPIO Initialization Function
