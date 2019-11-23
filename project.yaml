@@ -1,33 +1,82 @@
 common:
   includes:
   - Drivers
-  - Drivers\CMSIS
-  - Drivers\CMSIS\Device
-  - Drivers\CMSIS\Device\ST
-  - Drivers\CMSIS\Device\ST\STM32F1xx
-  - Drivers\CMSIS\Device\ST\STM32F1xx\Include
-  - Drivers\CMSIS\Include
-  - Drivers\STM32F1xx_HAL_Driver
-  - Drivers\STM32F1xx_HAL_Driver\Inc
-  - Drivers\STM32F1xx_HAL_Driver\Inc\Legacy
+  - Drivers/CMSIS
+  - Drivers/CMSIS/Device
+  - Drivers/CMSIS/Device/ST
+  - Drivers/CMSIS/Device/ST/STM32F1xx
+  - Drivers/CMSIS/Device/ST/STM32F1xx/Include
+  - Drivers/CMSIS/Include
+  - Drivers/STM32F1xx_HAL_Driver
+  - Drivers/STM32F1xx_HAL_Driver/Inc
+  - Drivers/STM32F1xx_HAL_Driver/Inc/Legacy
   - Inc
   sources:
     Drivers:
-    - Drivers\STM32F1xx_HAL_Driver\Src
-    IDE:
-    - IDE\IAR
-    - IDE\MDK5
+    - Drivers/STM32F1xx_HAL_Driver/Src
     Src:
-    - Src
+    - Src-rtt
   target:
-  - stm32f103c8
+  - stm32f103cb
 tool_specific:
   iar_arm:
+    macros:
+    - USE_HAL_DRIVER
+    - STM32F103xB 
+    sources:
+      StartUp:
+      - IDE/IAR
+      RTThread:
+      - Libraries/rt-thread/libcpu/arm/cortex-m3/context_iar.S
     linker_file:
-    - IDE\IAR\stm32f103xb_flash.icf
+    - IDE/IAR/stm32f103xb_flash.icf
   make_gcc_arm:
+    macros:
+    - USE_HAL_DRIVER
+    - STM32F103xB 
+    sources:
+      StartUp:
+      - IDE/GCC/startup_stm32f103xb-rtt.S
+      RTThread:
+      - Libraries/rt-thread/libcpu/arm/cortex-m3/context_gcc.S
     linker_file:
-    - IDE\GCC\STM32F103C8Tx_FLASH.ld
-  uvision:
+    - IDE/GCC/STM32F103C8Tx_FLASH.ld
+    misc:
+      standard_libraries:
+      - m
+      - gcc
+      - c
+      - nosys
+      - stdc++
+      common_flags:
+      - -O0
+      - -g
+      - -ggdb
+      - -Wall
+      - -fno-strict-aliasing
+      - -ffunction-sections
+      - -fdata-sections
+      - -fno-exceptions
+      - -fno-delete-null-pointer-checks
+      - -fmessage-length=0
+      - -fno-builtin
+      - -mthumb
+      ld_flags:
+      - -specs=nano.specs
+      - -Wl,--gc-sections
+      cxx_flags:
+      - -fno-rtti
+      - -std=gnu++98
+      c_flags:
+      - -std=c99
+  uvision5:
+    macros:
+    - USE_HAL_DRIVER
+    - STM32F103xB 
+    sources:
+      StartUp:
+      - IDE/MDK5
+      RTThread:
+      - Libraries/rt-thread/libcpu/arm/cortex-m3/context_rvds.S
     linker_file:
-    - IDE\MDK5\stm32f103cb.sct
+    - IDE/MDK5/stm32f103cb.sct

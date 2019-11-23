@@ -2,4 +2,5 @@ projects:
   stm32f103c8_rtt:
   - project.yaml
 settings:
-  export_dir: .
+  export_dir:
+  - generate_project
