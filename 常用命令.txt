@@ -1,5 +1,5 @@
 初始化
-progen init -p stm32f103c8 -tar stm32f103c8 
+progen init -p stm32f103c8_rtt -tar stm32f103c8 
 
 生成工程
 progen generate -f projects.yaml -p stm32f103c8_rtt -t iar_arm
