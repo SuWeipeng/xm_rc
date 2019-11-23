@@ -1,0 +1,11 @@
+初始化
+progen init -p stm32f103c8 -tar stm32f103c8 
+
+生成工程
+progen generate -f projects.yaml -p stm32f103c8_rtt -t iar_arm
+progen generate -f projects.yaml -p stm32f103c8_rtt -t uvision5
+progen generate -f projects.yaml -p stm32f103c8_rtt -t make_gcc_arm
+
+加入 rt-thread 精简内核
+git submodule add https://github.com/SuWeipeng/rt-thread.git Libraries/rt-thread
+
