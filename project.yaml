@@ -12,13 +12,17 @@ common:
   - Drivers/STM32F1xx_HAL_Driver/Inc/Legacy
   - Inc
   - Libraries
+  - Libraries/AP_Math
   - Libraries/mavlink
   - Libraries/mavlink/car
+  - Libraries/RC_Channel
   - Libraries/rt-thread
   - Libraries/rt-thread/board-f103c8
   - Libraries/rt-thread/components
+  - Libraries/rt-thread/components/cplusplus
   - Libraries/rt-thread/components/drivers
   - Libraries/rt-thread/components/drivers/include
+  - Libraries/rt-thread/components/drivers/include/drivers/adc.h
   - Libraries/rt-thread/components/drivers/include/drivers/pin.h
   - Libraries/rt-thread/components/drivers/include/drivers/serial.h
   - Libraries/rt-thread/components/drivers/include/drivers/spi.h
@@ -36,9 +40,17 @@ common:
   sources:
     Drivers:
     - Drivers/STM32F1xx_HAL_Driver/Src
+    Library:
+    - Libraries/AP_Math
+    - Libraries/RC_Channel
     RTThread:
-    - Drivers/RTT_Driver/Src
     - Libraries/rt-thread/board-f103c8
+    - Libraries/rt-thread/components/cplusplus/MutexCPP.cpp
+    - Libraries/rt-thread/components/cplusplus/SemaphoreCPP.cpp
+    - Libraries/rt-thread/components/cplusplus/ThreadCPP.cpp
+    - Libraries/rt-thread/components/cplusplus/crt.cpp
+    - Libraries/rt-thread/components/cplusplus/crt_init.c
+    - Libraries/rt-thread/components/drivers/misc/adc.c
     - Libraries/rt-thread/components/drivers/misc/pin.c
     - Libraries/rt-thread/components/drivers/serial/serial.c
     - Libraries/rt-thread/components/drivers/spi/spi_core.c
@@ -72,6 +84,20 @@ tool_specific:
     sources:
       StartUp:
       - IDE/IAR
+      dlib:
+      - Libraries/rt-thread/components/libc/compilers/dlib/environ.c
+      - Libraries/rt-thread/components/libc/compilers/dlib/rmtx.c
+      - Libraries/rt-thread/components/libc/compilers/dlib/stdio.c
+      - Libraries/rt-thread/components/libc/compilers/dlib/syscall_close.c
+      - Libraries/rt-thread/components/libc/compilers/dlib/syscall_lseek.c
+      - Libraries/rt-thread/components/libc/compilers/dlib/syscall_mem.c
+      - Libraries/rt-thread/components/libc/compilers/dlib/syscall_open.c
+      - Libraries/rt-thread/components/libc/compilers/dlib/syscall_read.c
+      - Libraries/rt-thread/components/libc/compilers/dlib/syscall_remove.c
+      - Libraries/rt-thread/components/libc/compilers/dlib/syscall_write.c
+      libc:
+      - Libraries/rt-thread/components/libc/compilers/armlibc/libc.c
+      - Libraries/rt-thread/components/libc/compilers/common/time.c
       RTThread:
       - Libraries/rt-thread/libcpu/arm/cortex-m3/context_iar.S
     linker_file:
@@ -83,6 +109,12 @@ tool_specific:
     sources:
       StartUp:
       - IDE/GCC/startup_stm32f103xb-rtt.S
+      libc:
+      - Libraries/rt-thread/components/libc/compilers/newlib/libc.c
+      - Libraries/rt-thread/components/libc/compilers/newlib/libc_syms.c
+      - Libraries/rt-thread/components/libc/compilers/newlib/stdio.c
+      - Libraries/rt-thread/components/libc/compilers/newlib/syscalls.c
+      - Libraries/rt-thread/components/libc/compilers/newlib/time.c
       RTThread:
       - Libraries/rt-thread/libcpu/arm/cortex-m3/context_gcc.S
     linker_file:
@@ -122,6 +154,11 @@ tool_specific:
     sources:
       StartUp:
       - IDE/MDK5
+      libc:
+      - Libraries/rt-thread/components/libc/compilers/armlibc/libc.c
+      - Libraries/rt-thread/components/libc/compilers/armlibc/mem_std.c
+      - Libraries/rt-thread/components/libc/compilers/armlibc/stubs.c
+      - Libraries/rt-thread/components/libc/compilers/common/time.c
       RTThread:
       - Libraries/rt-thread/libcpu/arm/cortex-m3/context_rvds.S
     linker_file:
