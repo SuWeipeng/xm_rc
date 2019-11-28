@@ -20,7 +20,7 @@
 2. [【升级】一招通吃MDK5、IAR、GCC](https://mp.weixin.qq.com/s/iVmaQ3S4vcitbJ8iXZyArw)
 
 一、MDK5 下编译设置       
-![](https://github.com/SuWeipeng/img/raw/master/13_car/mdk5_rtt_compile.jpg)
+![](https://github.com/SuWeipeng/img/raw/master/13_car/xm_mdk5_rtt_compile.jpg)
 
 二、IAR 下的设置（以使用 JLink 调试为例）
 ![](https://github.com/SuWeipeng/img/raw/master/13_car/iar_rtt_compile.jpg)
