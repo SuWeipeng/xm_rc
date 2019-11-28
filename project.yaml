@@ -12,7 +12,6 @@ common:
   - Drivers/STM32F1xx_HAL_Driver/Inc/Legacy
   - Inc
   - Libraries
-  - Libraries/AP_Math
   - Libraries/mavlink
   - Libraries/mavlink/car
   - Libraries/RC_Channel
@@ -41,7 +40,6 @@ common:
     Drivers:
     - Drivers/STM32F1xx_HAL_Driver/Src
     Library:
-    - Libraries/AP_Math
     - Libraries/RC_Channel
     RTThread:
     - Libraries/rt-thread/board-f103c8
@@ -78,10 +76,14 @@ common:
   - stm32f103cb
 tool_specific:
   iar_arm:
+    includes:
+    - Libraries/AP_Math
     macros:
     - USE_HAL_DRIVER
     - STM32F103xB 
     sources:
+      Library:
+      - Libraries/AP_Math
       StartUp:
       - IDE/IAR
       dlib:
@@ -103,10 +105,14 @@ tool_specific:
     linker_file:
     - IDE/IAR/stm32f103xb_flash.icf
   make_gcc_arm:
+    includes:
+    - Libraries/AP_Math
     macros:
     - USE_HAL_DRIVER
     - STM32F103xB 
     sources:
+      Library:
+      - Libraries/AP_Math
       StartUp:
       - IDE/GCC/startup_stm32f103xb-rtt.S
       libc:
@@ -148,10 +154,14 @@ tool_specific:
       c_flags:
       - -std=c99
   uvision5:
+    includes:
+    - Libraries/AP_Math_mdk5
     macros:
     - USE_HAL_DRIVER
     - STM32F103xB 
     sources:
+      Library:
+      - Libraries/AP_Math_mdk5
       StartUp:
       - IDE/MDK5
       libc:
