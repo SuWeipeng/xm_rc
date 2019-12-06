@@ -67,6 +67,7 @@ common:
     - Libraries/rt-thread/src
     Src:
     - packages/nrf24l01-latest/src
+    - packages/nrf24l01-latest/examples/sample_irq_prx.c
     - Src-rtt
     VCom:
     - Libraries/rt-thread/components/drivers/usb/usbdevice/core/core.c
