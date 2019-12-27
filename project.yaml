@@ -124,7 +124,7 @@ tool_specific:
       RTThread:
       - Libraries/rt-thread/libcpu/arm/cortex-m3/context_gcc.S
     linker_file:
-    - IDE/GCC/STM32F103C8Tx_FLASH.ld
+    - IDE/GCC/link.lds
     misc:
       standard_libraries:
       - m
@@ -150,7 +150,7 @@ tool_specific:
       - -Wl,--gc-sections
       cxx_flags:
       - -fno-rtti
-      - -std=gnu++98
+      - -std=c++11
       c_flags:
       - -std=c99
   uvision5:
