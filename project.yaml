@@ -116,7 +116,7 @@ tool_specific:
       StartUp:
       - IDE/GCC/startup_stm32f103xb-rtt.S
       libc:
-      - Libraries/rt-thread/components/libc/compilers/newlib/libc.c
+      #- Libraries/rt-thread/components/libc/compilers/newlib/libc.c
       - Libraries/rt-thread/components/libc/compilers/newlib/libc_syms.c
       - Libraries/rt-thread/components/libc/compilers/newlib/stdio.c
       - Libraries/rt-thread/components/libc/compilers/newlib/syscalls.c
