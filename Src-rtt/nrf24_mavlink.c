@@ -1,23 +1,25 @@
-#include <rtthread.h>
+#include <entry.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include "nrf24l01.h"
 #include "mavlink.h"
 #include "sample.h"
+#include "rtt_interface.h"
 
+#define MAVLINK_VCOM_DEBUG 0
 #define GET_BIT(value, i) ((value)>>i)
 
-typedef struct vel_target {
-  float vel_x; // m/s
-  float vel_y; // m/s
-  float rad_z; // rad/s
-} vel_target;
+#if MAVLINK_VCOM_DEBUG == 1
+extern rt_device_t vcom;
+#endif
 
 static rt_sem_t nrfirq_sem;
 
 static void _irq_init(void);
 static void _waitirq(void);
-static void _nrf24_param_set();
+static void _nrf24_param_set(nrf24_cfg_t *pt);
 
-vel_target vel={.vel_x = 1.0f, .vel_y = 2.0f, .rad_z = 3.0f};
+vel_target vel={.vel_x = 0.0f, .vel_y = 0.0f, .rad_z = 0.0f};
 
 void nrf24l01_mavlink_entry(void *param)
 {
@@ -50,7 +52,13 @@ void nrf24l01_mavlink_entry(void *param)
           case MAVLINK_MSG_ID_SIMPLE: {
             mavlink_simple_t packet;
             mavlink_msg_simple_decode(&msg_receive, &packet);
-
+            
+#if MAVLINK_VCOM_DEBUG == 1
+            char buf[32];
+            sprintf(buf, "%d\r\n", packet.data);
+            rt_device_write(vcom, 0, buf, rt_strlen(buf));
+#endif
+            
             mavlink_message_t msg_ack;
             mavlink_msg_velocity_pack(0, 0, &msg_ack, vel.vel_x, vel.vel_y, vel.rad_z);
             tlen = mavlink_msg_to_send_buffer((uint8_t *)tbuf, &msg_ack);
@@ -99,10 +107,9 @@ static void _nrf24_param_set(nrf24_cfg_t *pt)
 
 static int nrf24l01_mavlink_init(void)
 {
-  rt_thread_t thread;
+  rt_thread_t nrf_mav_thread;
 
-  thread = rt_thread_create("nrf_mav", nrf24l01_mavlink_entry, RT_NULL, 1024, 3, 20);
-  rt_thread_startup(thread);
+  RTT_CREATE(nrf_mav, nrf24l01_mavlink_entry, RT_NULL, 1536 , 3, 20)
 
   return RT_EOK;
 }
