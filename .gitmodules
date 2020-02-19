@@ -1,3 +1,6 @@
 [submodule "Libraries/rt-thread"]
 	path = Libraries/rt-thread
 	url = https://github.com/SuWeipeng/rt-thread.git
+[submodule "Libraries/mavlink"]
+	path = Libraries/mavlink
+	url = https://github.com/SuWeipeng/car_mavlink.git
