@@ -84,7 +84,7 @@ common:
     #- Libraries/rt-thread/components/drivers/usb/usbdevice/core/usbdevice.c
     #- Libraries/rt-thread/components/drivers/usb/usbdevice/class/cdc_vcom.c
   target:
-  - stm32f103cb
+  - stm32f103c8
 tool_specific:
   iar_arm:
     includes:
