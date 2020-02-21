@@ -513,7 +513,7 @@ void ssd1306_I2C_Init() {
 }
 
 void ssd1306_I2C_WriteMulti(uint8_t address, uint8_t reg, uint8_t* data, uint16_t count) {
-	uint8_t dt[count + 1];
+	uint8_t dt[SSD1306_WIDTH + 1];
 	dt[0] = reg;
 	uint8_t i;
 	for(i = 1; i <= count; i++)
