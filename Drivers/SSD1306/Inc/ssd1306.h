@@ -40,7 +40,7 @@ SDA        |PB11         |Serial data line
 /* SSD1306 settings */
 /* SSD1306 width in pixels */
 #ifndef SSD1306_WIDTH
-#define SSD1306_WIDTH            128
+#define SSD1306_WIDTH            (128+1)
 #endif
 /* SSD1306 LCD height in pixels */
 #ifndef SSD1306_HEIGHT

@@ -120,12 +120,12 @@ int main(void)
   setup();
 	
   check = SSD1306_Init();
-  SSD1306_Fill(0);
+  SSD1306_Fill(SSD1306_COLOR_BLACK);
   SSD1306_UpdateScreen();
   SSD1306_GotoXY(10, 10);
-  SSD1306_Puts("HELLO", &Font_11x18, 1);
+  SSD1306_Puts("HELLO", &Font_11x18, SSD1306_COLOR_WHITE);
   SSD1306_GotoXY(10, 30);
-  SSD1306_Puts("WORLD", &Font_11x18, 1);
+  SSD1306_Puts("WORLD", &Font_11x18, SSD1306_COLOR_WHITE);
   SSD1306_UpdateScreen();
 	
   rt_pin_mode(LED_R_PIN, PIN_MODE_OUTPUT);
