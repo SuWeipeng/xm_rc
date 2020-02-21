@@ -118,13 +118,14 @@ int main(void)
   setup();
   rt_pin_mode(LED_R_PIN, PIN_MODE_OUTPUT);
   rt_pin_write(LED_R_PIN, 1);
-  
+#if defined(RT_USING_USB_DEVICE)  
   vcom = rt_device_find("vcom");
   
   if (vcom)
     rt_device_open(vcom, RT_DEVICE_FLAG_RDWR);
   else
     return -RT_ERROR;
+#endif
   /* USER CODE END 2 */
 
   /* Infinite loop */

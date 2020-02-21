@@ -54,9 +54,11 @@ void nrf24l01_mavlink_entry(void *param)
             mavlink_msg_simple_decode(&msg_receive, &packet);
             
 #if MAVLINK_VCOM_DEBUG == 1
-            char buf[32];
-            sprintf(buf, "%d\r\n", packet.data);
-            rt_device_write(vcom, 0, buf, rt_strlen(buf));
+            if(vcom != NULL){
+              char buf[32];
+              sprintf(buf, "%d\r\n", packet.data);
+              rt_device_write(vcom, 0, buf, rt_strlen(buf));
+            }
 #endif
             
             mavlink_message_t msg_ack;

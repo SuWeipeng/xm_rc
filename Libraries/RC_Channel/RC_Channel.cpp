@@ -53,7 +53,9 @@ uint32_t RC_Channel::get_value(uint8_t channel)
 #else
   sprintf(buf, "x:%d, y:%d, z:%d\r\n", _adc_buf[3], _adc_buf[2], _adc_buf[1]);
 #endif
+if(vcom != NULL){
   rt_device_write(vcom, 0, buf, rt_strlen(buf));
+}
 #endif  
   return _adc_buf[channel];
 }
@@ -86,9 +88,11 @@ float RC_Channel::vel_x(int8_t inv)
   if(inv == -1) ret *= inv;
   
 #if ADC_VCOM_DEBUG == 1  
-  char buf[30];
-  sprintf(buf, "vel_x:%.3f\r\n", ret);
-  rt_device_write(vcom, 0, buf, rt_strlen(buf));
+  if(vcom != NULL){
+    char buf[30];
+    sprintf(buf, "vel_x:%.3f\r\n", ret);
+    rt_device_write(vcom, 0, buf, rt_strlen(buf));
+  }
 #endif 
   
   return constrain_float(ret, -VEL_X_MAX_M_S, VEL_X_MAX_M_S);
@@ -115,9 +119,11 @@ float RC_Channel::vel_y(int8_t inv)
   if(inv == -1) ret *= inv;
   
 #if ADC_VCOM_DEBUG == 1  
-  char buf[30];
-  sprintf(buf, "vel_y:%.3f\r\n", ret);
-  rt_device_write(vcom, 0, buf, rt_strlen(buf));
+  if(vcom != NULL){
+    char buf[30];
+    sprintf(buf, "vel_y:%.3f\r\n", ret);
+    rt_device_write(vcom, 0, buf, rt_strlen(buf));
+  }
 #endif  
   
   return constrain_float(ret, -VEL_Y_MAX_M_S, VEL_Y_MAX_M_S);
@@ -144,9 +150,11 @@ float RC_Channel::rad_z(int8_t inv)
   if(inv == -1) ret *= inv;
   
 #if ADC_VCOM_DEBUG == 1  
-  char buf[30];
-  sprintf(buf, "rad_z:%.3f\r\n", ret);
-  rt_device_write(vcom, 0, buf, rt_strlen(buf));
+  if(vcom != NULL){
+    char buf[30];
+    sprintf(buf, "rad_z:%.3f\r\n", ret);
+    rt_device_write(vcom, 0, buf, rt_strlen(buf));
+  }
 #endif 
   
   return constrain_float(ret, -RAD_Z_MAX_RAD_S, RAD_Z_MAX_RAD_S);
