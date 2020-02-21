@@ -24,6 +24,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <entry.h>
+#include "ssd1306.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -56,6 +57,7 @@ PCD_HandleTypeDef hpcd_USB_FS;
 
 /* USER CODE BEGIN PV */
 rt_device_t vcom = RT_NULL;
+uint8_t check;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -116,6 +118,16 @@ int main(void)
 //  MX_USB_PCD_Init();
   /* USER CODE BEGIN 2 */
   setup();
+	
+  check = SSD1306_Init();
+  SSD1306_Fill(0);
+  SSD1306_UpdateScreen();
+  SSD1306_GotoXY(10, 10);
+  SSD1306_Puts("HELLO", &Font_11x18, 1);
+  SSD1306_GotoXY(10, 30);
+  SSD1306_Puts("WORLD", &Font_11x18, 1);
+  SSD1306_UpdateScreen();
+	
   rt_pin_mode(LED_R_PIN, PIN_MODE_OUTPUT);
   rt_pin_write(LED_R_PIN, 1);
 #if defined(RT_USING_USB_DEVICE)  

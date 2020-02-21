@@ -7,6 +7,8 @@ common:
   - Drivers/CMSIS/Device/ST/STM32F1xx
   - Drivers/CMSIS/Device/ST/STM32F1xx/Include
   - Drivers/CMSIS/Include
+  - Drivers/SSD1306
+  - Drivers/SSD1306/Inc
   - Drivers/STM32F1xx_HAL_Driver
   - Drivers/STM32F1xx_HAL_Driver/Inc
   - Drivers/STM32F1xx_HAL_Driver/Inc/Legacy
@@ -42,6 +44,7 @@ common:
   - packages/nrf24l01-latest/examples
   sources:
     Drivers:
+    - Drivers/SSD1306/Src
     - Drivers/STM32F1xx_HAL_Driver/Src
     Library:
     - Libraries/RC_Channel
