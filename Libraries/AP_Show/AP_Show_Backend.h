@@ -10,8 +10,11 @@ public:
   AP_Show_Backend(AP_Show &show);
   ~AP_Show_Backend() {}
   virtual void show(uint8_t* str, uint8_t x_pos, uint8_t y_pos) = 0;
+  virtual void show(uint8_t page_num) = 0;
+  void update(uint8_t i);
+
   
-private:
+protected:
   AP_Show &_frontend;
 };
 
