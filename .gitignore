@@ -3,3 +3,7 @@ EWARM/*
 generate_project/*
 *.udb
 .mxproject
+.cproject
+.project
+language.settings.xml
+*.launch
