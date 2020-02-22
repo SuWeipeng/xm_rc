@@ -9,7 +9,7 @@ public:
   AP_Show_SSD1306_I2C(AP_Show &show);
   ~AP_Show_SSD1306_I2C() {}
   
-  void show(uint8_t* str, uint8_t x_pos, uint8_t y_pos);
+  virtual void show(uint8_t* str, uint8_t x_pos, uint8_t y_pos);
   
 private:
   void _refresh();
