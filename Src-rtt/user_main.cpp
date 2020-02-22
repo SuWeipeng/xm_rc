@@ -1,8 +1,10 @@
 #include "RC_Channel.h"
+#include "AP_Show.h"
 
 extern vel_target vel;
 
 RC_Channel* rc;
+AP_Show* show;
 
 #if defined(__cplusplus)
 extern "C" {
@@ -11,6 +13,10 @@ extern "C" {
 void setup(void)
 {
   rc = new RC_Channel();
+  show = new AP_Show();
+  show->init();
+  show->show((uint8_t*)"HELLO", 10, 15);
+  show->show((uint8_t*)"WORLD", 10, 35);
 }
 
 void loop(void)

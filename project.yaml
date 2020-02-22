@@ -14,6 +14,7 @@ common:
   - Drivers/STM32F1xx_HAL_Driver/Inc/Legacy
   - Inc
   - Libraries
+  - Libraries/AP_Show
   - Libraries/mavlink
   - Libraries/mavlink/car
   - Libraries/RC_Channel
@@ -47,6 +48,7 @@ common:
     - Drivers/SSD1306/Src
     - Drivers/STM32F1xx_HAL_Driver/Src
     Library:
+    - Libraries/AP_Show
     - Libraries/RC_Channel
     RTThread:
     - Libraries/rt-thread/board-f103c8
@@ -84,7 +86,7 @@ common:
     #- Libraries/rt-thread/components/drivers/usb/usbdevice/core/usbdevice.c
     #- Libraries/rt-thread/components/drivers/usb/usbdevice/class/cdc_vcom.c
   target:
-  - stm32f103c8
+  - stm32f103cb
 tool_specific:
   iar_arm:
     includes:
