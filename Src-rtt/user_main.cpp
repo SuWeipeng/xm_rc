@@ -15,8 +15,10 @@ void setup(void)
   rc = new RC_Channel();
   show = new AP_Show();
   show->init();
-  show->show((uint8_t*)"HELLO", 10, 15);
-  show->show((uint8_t*)"WORLD", 10, 35);
+  show->show((uint8_t*)"head", 10, 0);
+  show->show((uint8_t*)"HELLO", 10, 16);
+  show->show((uint8_t*)"WORLD", 10, 26);
+  show->show((uint8_t*)"STM32", 10, 36);
 }
 
 void loop(void)

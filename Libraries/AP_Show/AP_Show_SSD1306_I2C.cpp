@@ -17,7 +17,7 @@ void
 AP_Show_SSD1306_I2C::show(uint8_t* str, uint8_t x_pos, uint8_t y_pos)
 {
   SSD1306_GotoXY(x_pos, y_pos);
-  SSD1306_Puts((char*) str, &Font_11x18, SSD1306_COLOR_WHITE);
+  SSD1306_Puts((char*) str, &Font_7x10, SSD1306_COLOR_WHITE);
   _refresh();
 }
 
