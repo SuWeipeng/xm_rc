@@ -16,6 +16,8 @@ extern rt_device_t vcom;
 extern uint8_t k4_pressed;
 static rt_sem_t nrfirq_sem;
 
+uint32_t nrf24_timestamp;
+
 static void _irq_init(void);
 static void _waitirq(void);
 static void _nrf24_param_set(nrf24_cfg_t *pt);
@@ -27,7 +29,7 @@ void nrf24l01_mavlink_entry(void *param)
   struct hal_nrf24l01_port_cfg halcfg;
   nrf24_cfg_t cfg;
   int rlen;
-  static uint8_t tlen = 0;
+  uint8_t tlen = 0;
   uint8_t rbuf[32 + 1];
   uint8_t tbuf[32] = "first\r\n";
   
@@ -53,6 +55,8 @@ void nrf24l01_mavlink_entry(void *param)
           case MAVLINK_MSG_ID_SIMPLE: {
             mavlink_simple_t packet;
             mavlink_msg_simple_decode(&msg_receive, &packet);
+            
+            nrf24_timestamp = HAL_GetTick();
             
 #if MAVLINK_VCOM_DEBUG == 1
             if(vcom != NULL){
