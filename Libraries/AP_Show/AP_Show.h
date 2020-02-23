@@ -35,7 +35,7 @@ public:
   void init(void);
   void show(uint8_t* str, uint8_t x_pos, uint8_t y_pos);
   void update();
-  void page_write(uint8_t page_num, uint8_t line_num, char* content, char* head="");
+  void page_write(uint8_t page_num, uint8_t line_num, char* content, const char* head="");
   void show_page(uint8_t page_num) { _content.current_page = page_num; }
 
 private:

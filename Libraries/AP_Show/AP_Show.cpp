@@ -41,7 +41,7 @@ AP_Show::update()
 }
 
 void
-AP_Show::page_write(uint8_t page_num, uint8_t line_num, char* content, char* head)
+AP_Show::page_write(uint8_t page_num, uint8_t line_num, char* content, const char* head)
 {
   if(page_num > DISP_MAX_PAGES - 1) return;
 
