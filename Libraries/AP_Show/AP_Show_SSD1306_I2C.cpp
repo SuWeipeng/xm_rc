@@ -34,8 +34,9 @@ AP_Show_SSD1306_I2C::show(uint8_t page_num)
   uint8_t y_pos = 0;
   static uint8_t page_last = 0;
 
+  SSD1306_Fill(SSD1306_COLOR_BLACK);
+  
   if(page_last != page_num){
-    SSD1306_Fill(SSD1306_COLOR_BLACK);
     _refresh();
     page_last = page_num;
   }
