@@ -129,14 +129,15 @@ int main(void)
   else
     return -RT_ERROR;
 #endif
+
+  loop_start();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    loop();
-    rt_thread_delay(1);
+    return 0;
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

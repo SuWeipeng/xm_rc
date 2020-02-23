@@ -15,4 +15,6 @@ extern rt_thread_t led_thread;
 
 void led_thread_entry(void* parameter);
 
+int loop_start(void);
+
 #endif /* __RTT_INTERFACE_H */
