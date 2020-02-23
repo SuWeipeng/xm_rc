@@ -44,13 +44,13 @@ AP_Show_SSD1306_I2C::show(uint8_t page_num)
   for(uint8_t i= 0; i<DISP_MAX_LINE_PER_PAGE; i++){
       SSD1306_GotoXY(10, y_pos);
       if(y_pos == 0){
-        if(strlen(&_frontend._content.page_head[page_num][0]) != 0){
-            SSD1306_Puts(&_frontend._content.page_head[page_num][0], &Font_7x10, SSD1306_COLOR_WHITE);
+        if(strlen(_frontend._content.page_head[page_num]) != 0){
+            SSD1306_Puts(_frontend._content.page_head[page_num], &Font_7x10, SSD1306_COLOR_WHITE);
         }
         y_pos = 16;
         SSD1306_GotoXY(10, y_pos);
       }
-      SSD1306_Puts(&_frontend._content.content[page_num * DISP_MAX_LINE_PER_PAGE + i][0], &Font_7x10, SSD1306_COLOR_WHITE);
+      SSD1306_Puts(_frontend._content.content[page_num * DISP_MAX_LINE_PER_PAGE + i], &Font_7x10, SSD1306_COLOR_WHITE);
       y_pos += 10;
   }
   _refresh();

@@ -45,19 +45,19 @@ AP_Show::page_write(uint8_t page_num, uint8_t line_num, char* content, const cha
 {
   if(page_num > DISP_MAX_PAGES - 1) return;
 
-  strncpy(&_content.page_head[page_num][0], head, DISP_MAX_CHAR_PER_LINE);
-  strncpy(&_content.content[page_num * DISP_MAX_LINE_PER_PAGE + line_num][0], content, DISP_MAX_CHAR_PER_LINE);
+  strncpy(_content.page_head[page_num], head, DISP_MAX_CHAR_PER_LINE);
+  strncpy(_content.content[page_num * DISP_MAX_LINE_PER_PAGE + line_num], content, DISP_MAX_CHAR_PER_LINE);
 }
 
 void
 AP_Show::_update_page_bitmask(uint8_t page_num)
 {
   for(uint8_t i=0; i<DISP_MAX_LINE_PER_PAGE; i++){
-    if(strcmp(&_content.content_last[page_num * DISP_MAX_LINE_PER_PAGE + i][0],
-	      &_content.content[page_num * DISP_MAX_LINE_PER_PAGE + i][0]) != 0){
+    if(strcmp(_content.content_last[page_num * DISP_MAX_LINE_PER_PAGE + i],
+	      _content.content[page_num * DISP_MAX_LINE_PER_PAGE + i]) != 0){
       _content.refresh_bitmask |= (0x01 << page_num);
-      strncpy(&_content.content_last[page_num * DISP_MAX_LINE_PER_PAGE + i][0],
-	      &_content.content[page_num * DISP_MAX_LINE_PER_PAGE + i][0],DISP_MAX_CHAR_PER_LINE);
+      strncpy(_content.content_last[page_num * DISP_MAX_LINE_PER_PAGE + i],
+	      _content.content[page_num * DISP_MAX_LINE_PER_PAGE + i],DISP_MAX_CHAR_PER_LINE);
     }
   }
 }
