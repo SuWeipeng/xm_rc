@@ -120,6 +120,7 @@ int main(void)
   rt_pin_mode(LED_R_PIN, PIN_MODE_OUTPUT);
   rt_pin_write(LED_R_PIN, 1);
   RTT_CREATE(led,led_thread_entry,RT_NULL,1024,RT_THREAD_PRIORITY_MAX-2,20);
+  RTT_CREATE(show,show_thread_entry,RT_NULL,1024,RT_THREAD_PRIORITY_MAX-3,20);
   
 #if defined(RT_USING_USB_DEVICE)  
   vcom = rt_device_find("vcom");

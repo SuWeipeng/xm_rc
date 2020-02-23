@@ -1,6 +1,10 @@
 #ifndef __RTT_INTERFACE_H
 #define __RTT_INTERFACE_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <entry.h>
 
 #define LED_R_PIN    GET_PIN(C, 13)
@@ -12,9 +16,15 @@ typedef struct vel_target {
 } vel_target;
 
 extern rt_thread_t led_thread;
+extern rt_thread_t show_thread;
 
 void led_thread_entry(void* parameter);
+void show_thread_entry(void* parameter);
 
 int loop_start(void);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* __RTT_INTERFACE_H */
