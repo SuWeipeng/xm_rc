@@ -2,31 +2,25 @@
 #include <entry.h>
 #include "AP_Show.h"
 
+extern vel_target vel;
 extern AP_Show* show;
 
 rt_thread_t show_thread = RT_NULL;
 
 extern "C"
 void show_thread_entry(void* parameter)
-{
-  uint8_t i = 0;
-  uint32_t cnt = 0;
-  
+{  
+  char line[3][15];
   while(1) {
-    i++;
-    if(i>7) i=0;
-    show->show_page(i);
-    char buf[15];
-    char head[15];
-    sprintf (buf, "cnt:%d", cnt++);
-    sprintf (head, "page:%d", i);
-    if(i%2==0){
-      show->page_write(i, i%4, buf, head);
-    } else {
-      show->page_write(i, i%4, buf);
+    show->show_page(0);
+    sprintf (line[0], "vel_x:%.3f", vel.vel_x);
+    sprintf (line[1], "vel_y:%.3f", vel.vel_y);
+    sprintf (line[2], "rad_z:%.3f", vel.rad_z);
+    for(uint8_t i=0; i<3; i++){
+      show->page_write(0, i, line[i], "rc output");
     }
     show->update();
-	
-    rt_thread_delay(500);
+    
+    rt_thread_delay(100);
   }
 }
