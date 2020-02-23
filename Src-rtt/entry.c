@@ -24,6 +24,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <entry.h>
+#include "rtt_interface.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -33,7 +34,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define LED_R_PIN    GET_PIN(C, 13)
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -118,6 +119,8 @@ int main(void)
   setup();
   rt_pin_mode(LED_R_PIN, PIN_MODE_OUTPUT);
   rt_pin_write(LED_R_PIN, 1);
+  RTT_CREATE(led,led_thread_entry,RT_NULL,1024,RT_THREAD_PRIORITY_MAX-2,20);
+  
 #if defined(RT_USING_USB_DEVICE)  
   vcom = rt_device_find("vcom");
   
@@ -133,8 +136,7 @@ int main(void)
   while (1)
   {
     loop();
-    rt_pin_write(LED_R_PIN, !rt_pin_read(LED_R_PIN));
-    rt_thread_delay(500);
+    rt_thread_delay(1);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
