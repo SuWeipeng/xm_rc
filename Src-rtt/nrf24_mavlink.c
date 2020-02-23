@@ -13,6 +13,7 @@
 extern rt_device_t vcom;
 #endif
 
+extern uint8_t k4_pressed;
 static rt_sem_t nrfirq_sem;
 
 static void _irq_init(void);
@@ -29,9 +30,9 @@ void nrf24l01_mavlink_entry(void *param)
   static uint8_t tlen = 0;
   uint8_t rbuf[32 + 1];
   uint8_t tbuf[32] = "first\r\n";
-
+  
   _irq_init();
-
+  
   _nrf24_param_set(&cfg);
   halcfg.ce_pin = NRF24L01_CE_PIN;
   halcfg.spi_device_name = NRF24L01_SPI_DEVICE;
@@ -39,7 +40,7 @@ void nrf24l01_mavlink_entry(void *param)
   cfg.ud = &halcfg;
   cfg.use_irq = 1;        // True
   nrf24_init(&cfg);
-
+  
   while (1) {
     rlen = nrf24_irq_prx_run(rbuf, tbuf, tlen, _waitirq);
     if (rlen > 0) {       // received data (also indicating that the previous frame of data was sent complete)
@@ -62,7 +63,13 @@ void nrf24l01_mavlink_entry(void *param)
 #endif
             
             mavlink_message_t msg_ack;
-            mavlink_msg_velocity_pack(0, 0, &msg_ack, vel.vel_x, vel.vel_y, vel.rad_z);
+            
+            if(k4_pressed == 1){
+              mavlink_msg_cmd_pack( 0, 0, &msg_ack, 1 );
+              k4_pressed = 0;
+            } else {
+              mavlink_msg_velocity_pack(0, 0, &msg_ack, vel.vel_x, vel.vel_y, vel.rad_z);
+            }
             tlen = mavlink_msg_to_send_buffer((uint8_t *)tbuf, &msg_ack);
             break;
           }

@@ -8,6 +8,7 @@ extern "C" {
 #include <entry.h>
 
 #define LED_R_PIN    GET_PIN(C, 13)
+#define K4           GET_PIN(B, 12)
 
 typedef struct vel_target {
   float vel_x; // m/s
