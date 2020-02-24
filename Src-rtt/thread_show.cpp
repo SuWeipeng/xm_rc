@@ -19,7 +19,10 @@ void show_thread_entry(void* parameter)
     for(uint8_t i=0; i<3; i++){
       show->page_write(0, i, line[i], "rc output");
     }
+    
+    rt_enter_critical();
     show->update();
+    rt_exit_critical();
     
     rt_thread_delay(100);
   }
