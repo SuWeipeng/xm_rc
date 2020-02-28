@@ -17,7 +17,7 @@ void show_thread_entry(void* parameter)
   char buf[DISP_MAX_CHAR_PER_LINE];
   uint32_t cnt = 0;
   while(1) {
-    show->show_page(0);
+    show->show_page(1);
     
     // Page 0
     sprintf (line[0], "vel_x:%.3f", vel.vel_x);
@@ -34,7 +34,7 @@ void show_thread_entry(void* parameter)
     show->page_write(1, 0, buf, "ring fifo");
     sprintf(buf, "len :%d \r\n", buffer->buf_len());
     show->page_write(1, 1, buf, "ring fifo");
-    if(cnt%1==0 && buffer->read()>0){
+    if(cnt%3==0 && buffer->read()>0){
       sprintf(buf, "read:%s \r\n", (uint8_t*)buffer->read_buf_addr());
       show->page_write(1, 2, buf, "ring fifo");
     }
@@ -44,6 +44,6 @@ void show_thread_entry(void* parameter)
     show->update();
     rt_exit_critical();
     
-    rt_thread_delay(100);
+    rt_thread_delay(500);
   }
 }

@@ -7,7 +7,7 @@ extern "C" {
 
 #include <entry.h>
 
-#define AP_BUFFER_MAX_SIZE  (5)
+#define AP_BUFFER_MAX_SIZE  (6)
 #define LED_R_PIN           GET_PIN(C, 13)
 #define K4                  GET_PIN(B, 12)
 
