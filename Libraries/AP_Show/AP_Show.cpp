@@ -1,9 +1,13 @@
+#if defined(USE_RTTHREAD)
 #include <entry.h>
+#endif
 #include <string.h>
 #include "AP_Show.h"
 #include "AP_Show_SSD1306_I2C.h"
 
+#if defined(USE_RTTHREAD)
 using namespace rtthread;
+#endif
 
 AP_Show *AP_Show::_instance;
 AP_Show::page_content AP_Show::_content;
@@ -14,10 +18,18 @@ AP_Show::AP_Show()
 }
 
 void 
-AP_Show::init(void)
+AP_Show::init(led_type_t type)
 {
   for(uint8_t i=0; i<DISP_MAX_DRIVERS; i++){
-    _drivers[i] = new AP_Show_SSD1306_I2C(*this);
+    switch(type){
+    case SSD1306_OLED_I2C:{
+      _drivers[i] = new AP_Show_SSD1306_I2C(*this);
+      break;
+    }
+    case SSD1306_OLED_SPI:{
+      break;
+    }
+    }
   }
 }
 
