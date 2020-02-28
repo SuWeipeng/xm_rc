@@ -17,7 +17,7 @@ void show_thread_entry(void* parameter)
   char buf[DISP_MAX_CHAR_PER_LINE];
   uint32_t cnt = 0;
   while(1) {
-    show->show_page(1);
+    show->show_page(0);
     
     // Page 0
     sprintf (line[0], "vel_x:%.3f", vel.vel_x);
@@ -44,6 +44,6 @@ void show_thread_entry(void* parameter)
     show->update();
     rt_exit_critical();
     
-    rt_thread_delay(500);
+    rt_thread_delay(100);
   }
 }
