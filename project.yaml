@@ -1,4 +1,6 @@
 common:
+  macros:
+  - USE_RTTHREAD
   includes:
   - Drivers
   - Drivers/CMSIS

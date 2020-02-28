@@ -19,7 +19,7 @@ void setup(void)
 {
   rc = new RC_Channel();
   show = new AP_Show();
-  show->init();
+  show->init(AP_Show::SSD1306_OLED_I2C);
   buffer = new AP_Buffer();
   buffer->init(AP_Buffer::RING);
 }
