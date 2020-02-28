@@ -34,7 +34,7 @@ void show_thread_entry(void* parameter)
     show->page_write(1, 0, buf, "ring fifo");
     sprintf(buf, "len :%d \r\n", buffer->buf_len());
     show->page_write(1, 1, buf, "ring fifo");
-    if(cnt%3==0 && buffer->read()>0){
+    if(cnt%1==0 && buffer->read()>0){
       sprintf(buf, "read:%s \r\n", (uint8_t*)buffer->read_buf_addr());
       show->page_write(1, 2, buf, "ring fifo");
     }
