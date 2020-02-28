@@ -197,20 +197,21 @@ char SSD1306_Putc(char ch, FontDef_t* Font, SSD1306_COLOR_t color) {
 }
 
 char SSD1306_Puts(char* str, FontDef_t* Font, SSD1306_COLOR_t color) {
-	/* Write characters */
-	while (*str) {
-		/* Write character by character */
-		if (SSD1306_Putc(*str, Font, color) != *str) {
-			/* Return error */
-			return *str;
-		}
-		
-		/* Increase string pointer */
-		str++;
-	}
-	
-	/* Everything OK, zero should be returned */
-	return *str;
+  /* Write characters */
+  while (*str) {
+    if(*str != '\r' && *str != '\n'){
+      /* Write character by character */
+      if (SSD1306_Putc(*str, Font, color) != *str) {
+        /* Return error */
+        return *str;
+      }
+    }		
+    /* Increase string pointer */
+    str++;
+  }
+  
+  /* Everything OK, zero should be returned */
+  return *str;
 }
  
 

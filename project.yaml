@@ -14,6 +14,7 @@ common:
   - Drivers/STM32F1xx_HAL_Driver/Inc/Legacy
   - Inc
   - Libraries
+  - Libraries/AP_Buffer
   - Libraries/AP_Show
   - Libraries/mavlink
   - Libraries/mavlink/car
@@ -48,6 +49,7 @@ common:
     - Drivers/SSD1306/Src
     - Drivers/STM32F1xx_HAL_Driver/Src
     Library:
+    - Libraries/AP_Buffer
     - Libraries/AP_Show
     - Libraries/RC_Channel
     RTThread:
