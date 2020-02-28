@@ -7,3 +7,6 @@
 [submodule "Libraries/AP_Buffer"]
 	path = Libraries/AP_Buffer
 	url = https://github.com/SuWeipeng/AP_Buffer.git
+[submodule "Libraries/AP_Show"]
+	path = Libraries/AP_Show
+	url = https://github.com/SuWeipeng/AP_Show.git
