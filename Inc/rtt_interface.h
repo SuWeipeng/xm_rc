@@ -9,6 +9,9 @@ extern "C" {
 
 #define AP_BUFFER_MAX_SIZE  (6)
 #define LED_R_PIN           GET_PIN(C, 13)
+#define K1                  GET_PIN(B, 14)
+#define K2                  GET_PIN(B, 15)
+#define K3                  GET_PIN(B, 13)
 #define K4                  GET_PIN(B, 12)
 
 typedef struct vel_target {

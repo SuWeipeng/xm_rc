@@ -57,6 +57,9 @@ PCD_HandleTypeDef hpcd_USB_FS;
 
 /* USER CODE BEGIN PV */
 rt_device_t vcom = RT_NULL;
+uint8_t k1_pressed = 0;
+uint8_t k2_pressed = 0;
+uint8_t k3_pressed = 0;
 uint8_t k4_pressed = 0;
 /* USER CODE END PV */
 
@@ -73,6 +76,18 @@ static void MX_I2C1_Init(void);
 /* USER CODE BEGIN PFP */
 void setup(void);
 void loop(void);
+void k1_irq(void *args)
+{
+  k1_pressed = 1;
+}
+void k2_irq(void *args)
+{
+  k2_pressed = 1;
+}
+void k3_irq(void *args)
+{
+  k3_pressed = 1;
+}
 void k4_irq(void *args)
 {
   k4_pressed = 1;
@@ -126,6 +141,12 @@ int main(void)
   rt_pin_write(LED_R_PIN, 1);
   
   rt_pin_mode(K4, PIN_MODE_INPUT_PULLUP);
+  rt_pin_attach_irq(K1, PIN_IRQ_MODE_FALLING, k1_irq, RT_NULL);
+  rt_pin_irq_enable(K1, PIN_IRQ_ENABLE);
+  rt_pin_attach_irq(K2, PIN_IRQ_MODE_FALLING, k2_irq, RT_NULL);
+  rt_pin_irq_enable(K2, PIN_IRQ_ENABLE);
+  rt_pin_attach_irq(K3, PIN_IRQ_MODE_FALLING, k3_irq, RT_NULL);
+  rt_pin_irq_enable(K3, PIN_IRQ_ENABLE);
   rt_pin_attach_irq(K4, PIN_IRQ_MODE_FALLING, k4_irq, RT_NULL);
   rt_pin_irq_enable(K4, PIN_IRQ_ENABLE);
   

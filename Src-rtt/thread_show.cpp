@@ -6,6 +6,8 @@
 extern vel_target vel;
 extern AP_Show* show;
 extern AP_Buffer *buffer;
+extern uint8_t k1_pressed;
+extern uint8_t k2_pressed;
 
 rt_thread_t show_thread = RT_NULL;
 
@@ -16,8 +18,24 @@ void show_thread_entry(void* parameter)
   char c[1];
   char buf[DISP_MAX_CHAR_PER_LINE];
   uint32_t cnt = 0;
+  int8_t  page_num = 0;
   while(1) {
-    show->show_page(0);
+    // Switch page
+    if(k1_pressed){
+      page_num--;
+      if(page_num < 0) page_num = 0;
+      show->show_now(page_num);
+      k1_pressed = 0;
+    }
+    if(k2_pressed){
+      page_num++;
+      if(page_num > 1) page_num = 1;
+      show->show_now(page_num);
+      k2_pressed = 0;
+    }
+  
+    // Show page
+    show->show_page(page_num);
     
     // Page 0
     sprintf (line[0], "vel_x:%.3f", vel.vel_x);
