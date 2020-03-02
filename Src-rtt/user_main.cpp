@@ -21,7 +21,7 @@ void setup(void)
   show = new AP_Show();
   show->init(AP_Show::SSD1306_OLED_I2C);
   buffer = new AP_Buffer();
-  buffer->init(AP_Buffer::RING);
+  buffer->init(AP_Buffer::FIFO);
 }
 
 void loop(void* parameter)

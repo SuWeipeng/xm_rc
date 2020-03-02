@@ -48,6 +48,7 @@ void show_thread_entry(void* parameter)
     // Page 1
     sprintf(c, "%d", cnt++ % 10);
     buffer->write(c,sizeof(c)); 
+//    buffer->write("buffer",6); 
     sprintf(buf, "buf :%s \r\n", (uint8_t*)buffer->get_buffer());
     show->page_write(1, 0, buf, "ring fifo");
     sprintf(buf, "len :%d \r\n", buffer->buf_len());
