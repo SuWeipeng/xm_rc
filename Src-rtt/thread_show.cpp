@@ -17,6 +17,7 @@ void show_thread_entry(void* parameter)
   char line[3][15];
   char c[1];
   char buf[DISP_MAX_CHAR_PER_LINE];
+  char head[16];
   uint32_t cnt = 0;
   int8_t  page_num = 0;
   while(1) {
@@ -46,16 +47,24 @@ void show_thread_entry(void* parameter)
     }
     
     // Page 1
+    switch(buffer->get_buf_type()){
+    case AP_Buffer::RING:
+      sprintf(head, "%s \r\n", "ring fifo");
+      break;
+    case AP_Buffer::FIFO:
+      sprintf(head, "%s \r\n", "fifo");
+      break; 
+    }
     sprintf(c, "%d", cnt++ % 10);
     buffer->write(c,sizeof(c)); 
 //    buffer->write("buffer",6); 
     sprintf(buf, "buf :%s \r\n", (uint8_t*)buffer->get_buffer());
-    show->page_write(1, 0, buf, "ring fifo");
+    show->page_write(1, 0, buf, head);
     sprintf(buf, "len :%d \r\n", buffer->buf_len());
-    show->page_write(1, 1, buf, "ring fifo");
+    show->page_write(1, 1, buf, head);
     if(cnt%3==0 && buffer->read()>0){
       sprintf(buf, "read:%s \r\n", (uint8_t*)buffer->read_buf_addr());
-      show->page_write(1, 2, buf, "ring fifo");
+      show->page_write(1, 2, buf, head);
     }
     
     // update screen
