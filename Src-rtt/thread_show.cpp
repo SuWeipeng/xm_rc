@@ -56,13 +56,13 @@ void show_thread_entry(void* parameter)
       break; 
     }
     sprintf(c, "%d", cnt++ % 10);
-    buffer->write(c,sizeof(c)); 
-//    buffer->write("buffer",6); 
+//    buffer->write(c,sizeof(c)); 
+    buffer->write("buffer",6); 
     sprintf(buf, "buf :%s \r\n", (uint8_t*)buffer->get_buffer());
     show->page_write(1, 0, buf, head);
     sprintf(buf, "len :%d \r\n", buffer->buf_len());
     show->page_write(1, 1, buf, head);
-    if(cnt%3==0 && buffer->read()>0){
+    if(cnt%1==0 && buffer->read()>0){
       sprintf(buf, "read:%s \r\n", (uint8_t*)buffer->read_buf_addr());
       show->page_write(1, 2, buf, head);
     }
@@ -72,6 +72,6 @@ void show_thread_entry(void* parameter)
     show->update();
     rt_exit_critical();
     
-    rt_thread_delay(100);
+    rt_thread_delay(500);
   }
 }
