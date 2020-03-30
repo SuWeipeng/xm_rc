@@ -135,7 +135,7 @@ static void user_button_init(void)
     rt_pin_mode(K1, PIN_MODE_INPUT_PULLUP); /* set KEY pin mode to input */
     rt_pin_mode(K2, PIN_MODE_INPUT_PULLUP); /* set KEY pin mode to input */
     rt_pin_mode(K3, PIN_MODE_INPUT_PULLUP); /* set KEY pin mode to input */
-    rt_pin_mode(K4, PIN_MODE_INPUT_PULLDOWN); /* set KEY pin mode to input */
+    rt_pin_mode(K4, PIN_MODE_INPUT_PULLUP); /* set KEY pin mode to input */
 
     for (i = 0; i < USER_BUTTON_MAX; i ++)
     {
@@ -146,11 +146,6 @@ static void user_button_init(void)
         user_button[i].short_press_start_tick = FLEX_MS_TO_SCAN_CNT(1500);
         user_button[i].long_press_start_tick = FLEX_MS_TO_SCAN_CNT(3000);
         user_button[i].long_hold_start_tick = FLEX_MS_TO_SCAN_CNT(4500);
-
-        if (i == USER_BUTTON_3)
-        {
-            user_button[USER_BUTTON_3].pressed_logic_level = 1;
-        }
 
         flex_button_register(&user_button[i]);
     }
