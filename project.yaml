@@ -46,6 +46,7 @@ common:
   - Libraries/rt-thread/include/libc
   - packages/nrf24l01-latest/src
   - packages/nrf24l01-latest/examples
+  - packages/FlexibleButton-latest
   sources:
     Drivers:
     - Drivers/SSD1306/Src
@@ -84,6 +85,7 @@ common:
     - Libraries/rt-thread/src
     Src:
     - packages/nrf24l01-latest/src
+    - packages/FlexibleButton-latest
     - Src-rtt
     #VCom:
     #- Libraries/rt-thread/components/drivers/usb/usbdevice/core/core.c
