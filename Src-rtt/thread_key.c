@@ -40,6 +40,27 @@
 
 #define ENUM_TO_STR(e) (#e)
 
+extern char global_buf[4][16];
+
+/*
+ * 0   - default
+ * 1   - K4 clicked
+ * 2   - K3 clicked
+ * 3   - K2 clicked
+ * 4   - K1 clicked
+ * 5   - K4 short pressed
+ * 6   - K3 short pressed
+ * 7   - K2 short pressed
+ * 8   - K1 short pressed
+ * 9   - K4 and K3 short pressed
+ * 10  - K2 and K1 short pressed
+ * 11  - K4 double clicked
+ * 12  - K3 double clicked
+ * 13  - K2 double clicked
+ * 14  - K1 double clicked
+ */
+uint8_t key_value = 0;
+
 typedef enum
 {
     USER_BUTTON_0 = 0,
@@ -104,17 +125,79 @@ static uint8_t common_btn_read(void *arg)
 static void common_btn_evt_cb(void *arg)
 {
     flex_button_t *btn = (flex_button_t *)arg;
+    uint8_t tmp_key_value = 0;
 
-    rt_kprintf("id: [%d - %s]  event: [%d - %30s]  repeat: %d\n", 
+    rt_kprintf("id: [%d - %s]  event: [%d - %30s]  repeat: %d\n",
         btn->id, enum_btn_id_string[btn->id],
         btn->event, enum_event_string[btn->event],
         btn->click_cnt);
 
-    if ((flex_button_event_read(&user_button[USER_BUTTON_0]) == FLEX_BTN_PRESS_CLICK) &&\
-        (flex_button_event_read(&user_button[USER_BUTTON_1]) == FLEX_BTN_PRESS_CLICK))
-    {
-        rt_kprintf("[combination]: button 0 and button 1\n");
+    // ignore FLEX_BTN_PRESS_LONG_START and FLEX_BTN_PRESS_LONG_HOLD
+    if(btn->event == FLEX_BTN_PRESS_LONG_START || btn->event == FLEX_BTN_PRESS_LONG_HOLD)
+      return;
+
+    if(btn->id == 0 && btn->event == FLEX_BTN_PRESS_CLICK && btn->click_cnt == 1){
+	tmp_key_value = 1;
     }
+
+    if(btn->id == 1 && btn->event == FLEX_BTN_PRESS_CLICK && btn->click_cnt == 1){
+    	tmp_key_value = 2;
+    }
+
+    if(btn->id == 2 && btn->event == FLEX_BTN_PRESS_CLICK && btn->click_cnt == 1){
+    	tmp_key_value = 3;
+    }
+
+    if(btn->id == 3 && btn->event == FLEX_BTN_PRESS_CLICK && btn->click_cnt == 1){
+    	tmp_key_value = 4;
+    }
+    if(btn->id == 0 && btn->event == FLEX_BTN_PRESS_SHORT_START && btn->click_cnt == 0){
+	tmp_key_value = 5;
+    }
+
+    if(btn->id == 1 && btn->event == FLEX_BTN_PRESS_SHORT_START && btn->click_cnt == 0){
+    	tmp_key_value = 6;
+    }
+
+    if(btn->id == 2 && btn->event == FLEX_BTN_PRESS_SHORT_START && btn->click_cnt == 0){
+    	tmp_key_value = 7;
+    }
+
+    if(btn->id == 3 && btn->event == FLEX_BTN_PRESS_SHORT_START && btn->click_cnt == 0){
+    	tmp_key_value = 8;
+    }
+
+    if ((flex_button_event_read(&user_button[USER_BUTTON_0]) == FLEX_BTN_PRESS_SHORT_START) &&\
+        (flex_button_event_read(&user_button[USER_BUTTON_1]) == FLEX_BTN_PRESS_SHORT_START))
+    {
+	tmp_key_value = 9;
+    }
+
+    if ((flex_button_event_read(&user_button[USER_BUTTON_2]) == FLEX_BTN_PRESS_SHORT_START) &&\
+        (flex_button_event_read(&user_button[USER_BUTTON_3]) == FLEX_BTN_PRESS_SHORT_START))
+    {
+	tmp_key_value = 10;
+    }
+
+    if(btn->id == 0 && btn->event == FLEX_BTN_PRESS_DOUBLE_CLICK && btn->click_cnt == 2){
+	tmp_key_value = 11;
+    }
+
+    if(btn->id == 1 && btn->event == FLEX_BTN_PRESS_DOUBLE_CLICK && btn->click_cnt == 2){
+    	tmp_key_value = 12;
+    }
+
+    if(btn->id == 2 && btn->event == FLEX_BTN_PRESS_DOUBLE_CLICK && btn->click_cnt == 2){
+    	tmp_key_value = 13;
+    }
+
+    if(btn->id == 3 && btn->event == FLEX_BTN_PRESS_DOUBLE_CLICK && btn->click_cnt == 2){
+    	tmp_key_value = 14;
+    }
+
+    key_value = tmp_key_value;
+    rt_kprintf("key_value: %d\n", key_value);
+    sprintf(global_buf[0], "key_value: %d", key_value);
 }
 
 static void button_scan(void *arg)

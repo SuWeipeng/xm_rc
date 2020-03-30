@@ -13,6 +13,9 @@
 extern rt_device_t vcom;
 #endif
 
+extern uint8_t key_value;
+extern char global_buf[4][16];
+
 static rt_sem_t nrfirq_sem;
 
 uint32_t nrf24_timestamp;
@@ -67,12 +70,13 @@ void nrf24l01_mavlink_entry(void *param)
             
             mavlink_message_t msg_ack;
             
-//            if(k4_pressed == 1){
-//              mavlink_msg_cmd_pack( 0, 0, &msg_ack, 1 );
-//              k4_pressed = 0;
-//            } else {
+            if(key_value == 5){
+              mavlink_msg_cmd_pack( 0, 0, &msg_ack, 1 );
+              sprintf(global_buf[2], "nrf24: cmd send \r\n");
+              key_value = 0;
+            } else {
               mavlink_msg_velocity_pack(0, 0, &msg_ack, vel.vel_x, vel.vel_y, vel.rad_z);
-//            }
+            }
             tlen = mavlink_msg_to_send_buffer((uint8_t *)tbuf, &msg_ack);
             break;
           }
