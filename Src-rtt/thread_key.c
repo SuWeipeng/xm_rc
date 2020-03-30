@@ -127,11 +127,6 @@ static void common_btn_evt_cb(void *arg)
     flex_button_t *btn = (flex_button_t *)arg;
     uint8_t tmp_key_value = 0;
 
-    rt_kprintf("id: [%d - %s]  event: [%d - %30s]  repeat: %d\n",
-        btn->id, enum_btn_id_string[btn->id],
-        btn->event, enum_event_string[btn->event],
-        btn->click_cnt);
-
     // ignore FLEX_BTN_PRESS_LONG_START and FLEX_BTN_PRESS_LONG_HOLD
     if(btn->event == FLEX_BTN_PRESS_LONG_START || btn->event == FLEX_BTN_PRESS_LONG_HOLD)
       return;
@@ -241,7 +236,7 @@ int flex_button_main(void)
     user_button_init();
 
     /* Create background ticks thread */
-    tid = rt_thread_create("flex_btn", button_scan, RT_NULL, 1024, 10, 10);
+    tid = rt_thread_create("flex_btn", button_scan, RT_NULL, 666, 10, 10);
     if(tid != RT_NULL)
     {
         rt_thread_startup(tid);
