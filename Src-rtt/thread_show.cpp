@@ -22,18 +22,18 @@ void show_thread_entry(void* parameter)
   int8_t  page_num = 0;
   while(1) {
     // Switch page
-    if(k1_pressed){
-      page_num--;
-      if(page_num < 0) page_num = 0;
-      show->show_now(page_num);
-      k1_pressed = 0;
-    }
-    if(k2_pressed){
-      page_num++;
-      if(page_num > 1) page_num = 1;
-      show->show_now(page_num);
-      k2_pressed = 0;
-    }
+//    if(k1_pressed){
+//      page_num--;
+//      if(page_num < 0) page_num = 0;
+//      show->show_now(page_num);
+//      k1_pressed = 0;
+//    }
+//    if(k2_pressed){
+//      page_num++;
+//      if(page_num > 1) page_num = 1;
+//      show->show_now(page_num);
+//      k2_pressed = 0;
+//    }
   
     // Show page
     show->show_page(page_num);
