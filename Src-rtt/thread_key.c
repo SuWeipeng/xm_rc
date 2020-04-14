@@ -58,6 +58,8 @@ extern char global_buf[4][16];
  * 12  - K3 double clicked
  * 13  - K2 double clicked
  * 14  - K1 double clicked
+ * 15  - K4 and K3 clicked
+ * 16  - K2 and K1 clicked
  */
 uint8_t key_value = 0;
 
@@ -188,6 +190,18 @@ static void common_btn_evt_cb(void *arg)
 
     if(btn->id == 3 && btn->event == FLEX_BTN_PRESS_DOUBLE_CLICK && btn->click_cnt == 2){
     	tmp_key_value = 14;
+    }
+
+    if ((flex_button_event_read(&user_button[USER_BUTTON_0]) == FLEX_BTN_PRESS_CLICK) &&\
+            (flex_button_event_read(&user_button[USER_BUTTON_1]) == FLEX_BTN_PRESS_CLICK))
+    {
+    	tmp_key_value = 15;
+    }
+
+    if ((flex_button_event_read(&user_button[USER_BUTTON_2]) == FLEX_BTN_PRESS_CLICK) &&\
+                (flex_button_event_read(&user_button[USER_BUTTON_3]) == FLEX_BTN_PRESS_CLICK))
+    {
+	tmp_key_value = 16;
     }
 
     key_value = tmp_key_value;

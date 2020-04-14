@@ -57,7 +57,7 @@ void show_thread_entry(void* parameter)
     sprintf(head, "%s \r\n", "key monitor");
     show->page_write(1, 0, global_buf[0], head);
     show->page_write(1, 2, global_buf[2], head);
-    if(key_value == 9){
+    if(key_value == 15){
 	memset(global_buf[2], 0, 16);
     }
     

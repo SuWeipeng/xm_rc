@@ -70,7 +70,7 @@ void nrf24l01_mavlink_entry(void *param)
             
             mavlink_message_t msg_ack;
             
-            if(key_value == 5){
+            if(key_value == 11){
               mavlink_msg_cmd_pack( 0, 0, &msg_ack, 1 );
               sprintf(global_buf[2], "nrf24: cmd send \r\n");
               key_value = 0;
