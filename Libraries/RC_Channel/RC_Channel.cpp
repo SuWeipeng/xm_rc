@@ -63,7 +63,7 @@ if(vcom != NULL){
 float RC_Channel::vel_x(int8_t inv)
 {
 #if !defined(RC_MODE_1)
-  inv *= -1;
+//  inv *= -1;
 #endif
   float    ret = 0.0f;
   uint16_t min = 0;
