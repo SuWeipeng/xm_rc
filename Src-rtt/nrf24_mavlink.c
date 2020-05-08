@@ -17,6 +17,7 @@ extern uint8_t key_value;
 extern char global_buf[4][16];
 
 static rt_sem_t nrfirq_sem;
+static uint8_t  cmd_cnt = 0;
 
 uint32_t nrf24_timestamp;
 
@@ -70,9 +71,13 @@ void nrf24l01_mavlink_entry(void *param)
             
             mavlink_message_t msg_ack;
             
-            if(key_value == 11){
+            if(key_value == 11 || cmd_cnt != 0){
               mavlink_msg_cmd_pack( 0, 0, &msg_ack, 1 );
-              sprintf(global_buf[2], "nrf24: cmd send \r\n");
+              cmd_cnt++;
+              sprintf(global_buf[2], "nrf24: cnt %d \r\n", cmd_cnt);
+              if(cmd_cnt > 59){
+                cmd_cnt = 0;
+              }
               key_value = 0;
             } else {
               mavlink_msg_velocity_pack(0, 0, &msg_ack, vel.vel_x, vel.vel_y, vel.rad_z);
@@ -84,6 +89,7 @@ void nrf24l01_mavlink_entry(void *param)
         }
       }
     }
+    rt_thread_delay(1);
   }
 }
 
