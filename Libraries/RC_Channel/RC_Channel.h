@@ -5,6 +5,7 @@
 #include "rtt_interface.h"
 
 #define RC_MODE_1
+#define PCT_MODE
 
 #define ADC_CHANNEL_CNT 4
 #define ADC_BUFF_LEN    ADC_CHANNEL_CNT*2
@@ -18,9 +19,15 @@
 #define ADC_CHANNEL_Y_MAX 4012
 #define ADC_CHANNEL_Z_MAX 4007
 
+#if !defined(PCT_MODE)
 #define VEL_X_MAX_M_S   0.104f
 #define VEL_Y_MAX_M_S   0.104f
 #define RAD_Z_MAX_RAD_S 0.7f
+#else
+#define VEL_X_MAX_M_S   1.0f
+#define VEL_Y_MAX_M_S   1.0f
+#define RAD_Z_MAX_RAD_S 1.0f
+#endif
 
 class RC_Channel
 {
