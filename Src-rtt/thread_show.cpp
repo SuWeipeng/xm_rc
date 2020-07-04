@@ -68,7 +68,22 @@ void show_thread_entry(void* parameter)
     
     // Page 2
     static int8_t prev_mode;
-    sprintf (mode_page, "mode:%d", mav_data.mode);
+    char mode_name[6];
+    switch(mav_data.mode){
+    case 0:{
+      sprintf (mode_name, "%s", "Manual");
+      break;
+    }
+    case 1:{
+      sprintf (mode_name, "%s", "Auto");
+      break;
+    }
+    case 2:{
+      sprintf (mode_name, "%s", "ROS");
+      break;
+    }
+    }
+    sprintf (mode_page, "Mode:%s", mode_name);
     show->page_write(2, 0, mode_page, "car mode");
     if(page_num == 2){
       switch(key_value){
