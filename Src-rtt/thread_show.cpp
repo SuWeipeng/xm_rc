@@ -74,7 +74,7 @@ void show_thread_entry(void* parameter)
       switch(key_value){
       case 3:{
         car_mode++;
-        if(car_mode > 3) car_mode = 3;
+        if(car_mode > 2) car_mode = 2;
         break;
       }
       case 4:{
