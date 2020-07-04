@@ -5,9 +5,12 @@
 #include "AP_Buffer.h"
 
 extern vel_target vel;
-extern AP_Show* show;
-extern AP_Buffer *buffer;
-extern uint8_t key_value;
+extern AP_Show*   show;
+extern AP_Buffer* buffer;
+extern uint8_t    key_value;
+extern ap_t       mav_data;
+extern uint8_t    mode_changed;
+extern int8_t     car_mode;
 
 extern "C"{
 char global_buf[4][16];
@@ -20,7 +23,9 @@ void show_thread_entry(void* parameter)
 {  
   char line[3][15];
   char head[16];
+  char mode_page[16];
   int8_t  page_num = 0;
+  uint8_t page_max = 2;
   while(1) {
     // Switch page
     if(key_value == 2 && page_num != 1){
@@ -37,7 +42,7 @@ void show_thread_entry(void* parameter)
 
     if(key_value == 1){
       page_num++;
-      if(page_num > 1) page_num = 1;
+      if(page_num > page_max) page_num = page_max;
       show->show_now(page_num);
       key_value = 0;
     }
@@ -59,6 +64,32 @@ void show_thread_entry(void* parameter)
     show->page_write(1, 2, global_buf[2], head);
     if(key_value == 15){
 	memset(global_buf[2], 0, 16);
+    }
+    
+    // Page 2
+    static int8_t prev_mode;
+    sprintf (mode_page, "mode:%d", mav_data.mode);
+    show->page_write(2, 0, mode_page, "car mode");
+    if(page_num == 2){
+      switch(key_value){
+      case 3:{
+        car_mode++;
+        if(car_mode > 3) car_mode = 3;
+        break;
+      }
+      case 4:{
+        car_mode--;
+        if(car_mode < 0) car_mode = 0;
+        break;
+      }
+      default:{
+        break;
+      }
+      }
+      if(prev_mode != car_mode){
+        mode_changed = 1;
+        prev_mode = car_mode;
+      }
     }
     
     // update screen

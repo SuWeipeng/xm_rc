@@ -20,6 +20,9 @@ static rt_sem_t nrfirq_sem;
 static uint8_t  cmd_cnt = 0;
 
 uint32_t nrf24_timestamp;
+ap_t     mav_data;
+uint8_t  mode_changed;
+int8_t   car_mode;
 
 static void _irq_init(void);
 static void _waitirq(void);
@@ -61,6 +64,8 @@ void nrf24l01_mavlink_entry(void *param)
             
             nrf24_timestamp = HAL_GetTick();
             
+            memcpy(&mav_data, &packet.data, sizeof(packet.data));
+            
 #if MAVLINK_VCOM_DEBUG == 1
             if(vcom != NULL){
               char buf[32];
@@ -79,6 +84,10 @@ void nrf24l01_mavlink_entry(void *param)
                 cmd_cnt = 0;
               }
               key_value = 0;
+            } else if(mode_changed){
+              mavlink_msg_mode_pack( 0, 0, &msg_ack, car_mode, 0);
+              mode_changed = 0;
+              key_value    = 0;
             } else {
               mavlink_msg_velocity_pack(0, 0, &msg_ack, vel.vel_x, vel.vel_y, vel.rad_z);
             }
