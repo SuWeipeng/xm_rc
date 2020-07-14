@@ -57,10 +57,10 @@ common:
     - Libraries/RC_Channel
     RTThread:
     - Libraries/rt-thread/board-f103c8
-    - Libraries/rt-thread/components/cplusplus/MutexCPP.cpp
-    - Libraries/rt-thread/components/cplusplus/SemaphoreCPP.cpp
-    - Libraries/rt-thread/components/cplusplus/ThreadCPP.cpp
-    - Libraries/rt-thread/components/cplusplus/crt.cpp
+    - Libraries/rt-thread/components/cplusplus/cxx_Mutex.cpp
+    - Libraries/rt-thread/components/cplusplus/cxx_Semaphore.cpp
+    - Libraries/rt-thread/components/cplusplus/cxx_Thread.cpp
+    - Libraries/rt-thread/components/cplusplus/cxx_crt.cpp
     - Libraries/rt-thread/components/cplusplus/crt_init.c
     - Libraries/rt-thread/components/drivers/misc/adc.c
     - Libraries/rt-thread/components/drivers/misc/pin.c
