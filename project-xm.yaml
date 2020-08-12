@@ -86,7 +86,7 @@ common:
     Src:
     - packages/nrf24l01-latest/src
     - packages/FlexibleButton-latest
-    - Src-rtt
+    - Src-xm
     #VCom:
     #- Libraries/rt-thread/components/drivers/usb/usbdevice/core/core.c
     #- Libraries/rt-thread/components/drivers/usb/usbdevice/core/usbdevice.c
