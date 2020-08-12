@@ -5,6 +5,7 @@
 extern "C" {
 #endif
 
+#define AP_BUFFER_MAX_SIZE  (6)
 #include <entry.h>
 
 #define AP_BUFFER_MAX_SIZE  (6)
