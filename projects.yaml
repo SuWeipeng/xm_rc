@@ -1,7 +1,7 @@
 projects:
-  stm32f103c8_xm:
+  rc_xm:
   - project-xm.yaml
-  stm32f103c8_zd:
+  rc_zd:
   - project-zd.yaml
 settings:
   export_dir:
