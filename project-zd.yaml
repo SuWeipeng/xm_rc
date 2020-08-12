@@ -9,8 +9,7 @@ common:
   - Drivers/CMSIS/Device/ST/STM32F1xx
   - Drivers/CMSIS/Device/ST/STM32F1xx/Include
   - Drivers/CMSIS/Include
-  - Drivers/SSD1306
-  - Drivers/SSD1306/Inc
+  - Drivers/ssd1306_Driver
   - Drivers/STM32F1xx_HAL_Driver
   - Drivers/STM32F1xx_HAL_Driver/Inc
   - Drivers/STM32F1xx_HAL_Driver/Inc/Legacy
@@ -49,7 +48,7 @@ common:
   - packages/FlexibleButton-latest
   sources:
     Drivers:
-    - Drivers/SSD1306/Src
+    - Drivers/ssd1306_Driver
     - Drivers/STM32F1xx_HAL_Driver/Src
     Library:
     - Libraries/AP_Buffer
