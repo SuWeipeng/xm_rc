@@ -53,8 +53,6 @@ UART_HandleTypeDef huart3;
 DMA_HandleTypeDef hdma_usart1_rx;
 DMA_HandleTypeDef hdma_usart1_tx;
 
-PCD_HandleTypeDef hpcd_USB_FS;
-
 /* USER CODE BEGIN PV */
 rt_device_t vcom = RT_NULL;
 /* USER CODE END PV */
@@ -88,7 +86,6 @@ int main(void)
   /* USER CODE BEGIN 1 */
 
   /* USER CODE END 1 */
-  
 
   /* MCU Configuration--------------------------------------------------------*/
 
@@ -183,9 +180,8 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
-  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_ADC|RCC_PERIPHCLK_USB;
+  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_ADC;
   PeriphClkInit.AdcClockSelection = RCC_ADCPCLK2_DIV4;
-  PeriphClkInit.UsbClockSelection = RCC_USBCLKSOURCE_PLL;
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
   {
     Error_Handler();
@@ -372,37 +368,6 @@ static void MX_I2C1_Init(void)
 //  /* USER CODE BEGIN USART3_Init 2 */
 //
 //  /* USER CODE END USART3_Init 2 */
-//
-//}
-
-/**
-  * @brief USB Initialization Function
-  * @param None
-  * @retval None
-  */
-//static void MX_USB_PCD_Init(void)
-//{
-//
-//  /* USER CODE BEGIN USB_Init 0 */
-//
-//  /* USER CODE END USB_Init 0 */
-//
-//  /* USER CODE BEGIN USB_Init 1 */
-//
-//  /* USER CODE END USB_Init 1 */
-//  hpcd_USB_FS.Instance = USB;
-//  hpcd_USB_FS.Init.dev_endpoints = 8;
-//  hpcd_USB_FS.Init.speed = PCD_SPEED_FULL;
-//  hpcd_USB_FS.Init.low_power_enable = DISABLE;
-//  hpcd_USB_FS.Init.lpm_enable = DISABLE;
-//  hpcd_USB_FS.Init.battery_charging_enable = DISABLE;
-//  if (HAL_PCD_Init(&hpcd_USB_FS) != HAL_OK)
-//  {
-//    Error_Handler();
-//  }
-//  /* USER CODE BEGIN USB_Init 2 */
-//
-//  /* USER CODE END USB_Init 2 */
 //
 //}
 
