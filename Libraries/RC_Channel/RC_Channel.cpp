@@ -8,10 +8,10 @@ extern rt_device_t vcom;
 #endif
 
 #define ADC_DEV_NAME        "adc1"
-#define ADC_X_MODE1_CHANNEL 3
-#define ADC_X_MODE2_CHANNEL 1
-#define ADC_Y_CHANNEL       2
-#define ADC_Z_CHANNEL       0
+#define ADC_X_MODE1_CHANNEL 2
+#define ADC_X_MODE2_CHANNEL 9
+#define ADC_Y_CHANNEL       1
+#define ADC_Z_CHANNEL       8
 
 RC_Channel::RC_Channel()
 {

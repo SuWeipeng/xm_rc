@@ -15,6 +15,16 @@ extern "C" {
 #define K3                  GET_PIN(B, 11)
 #define K4                  GET_PIN(C, 15)
 
+typedef union{
+  struct{
+    uint8_t key_value: 3;
+    uint8_t w_number : 2;
+    uint8_t mode     : 2;
+    uint8_t com      : 1;
+  };
+  uint8_t value;
+}ap_t;
+
 typedef struct vel_target {
   float vel_x; // m/s
   float vel_y; // m/s
