@@ -10,6 +10,7 @@
 #define NRF24_DEMO_IRQ_PIN              GET_PIN(C, 13)
 
 static uint8_t  cmd_cnt = 0;
+static char tbuf[32];
 
 extern uint8_t key_value;
 extern char global_buf[4][16];
@@ -20,7 +21,6 @@ uint8_t    mode_changed;
 uint8_t    tlen;
 int8_t     car_mode;
 vel_target vel={.vel_x = 0.0f, .vel_y = 0.0f, .rad_z = 0.0f};
-char tbuf[32];
 
 static void rx_ind(nrf24_t nrf24, uint8_t *data, uint8_t len, int pipe)
 {
