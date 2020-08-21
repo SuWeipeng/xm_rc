@@ -30,7 +30,7 @@ void setup(void)
 void loop(void* parameter)
 {  
   while(1){
-    if(key_value == 13){
+    if(key_value == 3){
       switch_y = !switch_y;
       key_value = 0;
     }
