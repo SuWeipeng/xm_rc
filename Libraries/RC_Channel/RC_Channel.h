@@ -40,6 +40,7 @@ public:
   float    vel_x(int8_t inv = 1);
   float    vel_y(int8_t inv = 1);
   float    rad_z(int8_t inv = 1);
+  float    ext_1(int8_t inv = 1);
   
 private:
   uint32_t           _adc_buf[ADC_BUFF_LEN];
