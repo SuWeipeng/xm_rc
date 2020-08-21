@@ -11,6 +11,7 @@ extern uint8_t    key_value;
 extern ap_t       mav_data;
 extern uint8_t    mode_changed;
 extern int8_t     car_mode;
+extern uint8_t    switch_y;
 
 extern "C"{
 char global_buf[4][16];
@@ -21,7 +22,7 @@ rt_thread_t show_thread = RT_NULL;
 extern "C"
 void show_thread_entry(void* parameter)
 {  
-  char line[3][15];
+  char line[4][15];
   char head[16];
   char mode_page[16];
   int8_t  page_num = 0;
@@ -52,9 +53,14 @@ void show_thread_entry(void* parameter)
     
     // Page 0
     sprintf (line[0], "vel_x:%.3f", vel.vel_x);
-    sprintf (line[1], "vel_y:%.3f", vel.vel_y);
+    if(switch_y == 1){
+      sprintf (line[1], "ext_2:%.3f", vel.ext_2);
+    } else {
+      sprintf (line[1], "vel_y:%.3f", vel.vel_y);
+    }
     sprintf (line[2], "rad_z:%.3f", vel.rad_z);
-    for(uint8_t i=0; i<3; i++){
+    sprintf (line[3], "ext_1:%.3f", vel.ext_1);
+    for(uint8_t i=0; i<4; i++){
       show->page_write(0, i, line[i], "rc output");
     }
     
