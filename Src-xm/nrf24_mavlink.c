@@ -23,7 +23,7 @@ static void _irq_init(void);
 static void _waitirq(void);
 static void _nrf24_param_set(nrf24_cfg_t *pt);
 
-vel_target vel={.vel_x = 0.0f, .vel_y = 0.0f, .rad_z = 0.0f};
+vel_target vel={.vel_x = 0.0f, .vel_y = 0.0f, .rad_z = 0.0f, .ext_1 = 0.0f, .ext_2 = 0.0f, .ext_3 = 0};
 
 void nrf24l01_mavlink_entry(void *param)
 {
@@ -84,7 +84,7 @@ void nrf24l01_mavlink_entry(void *param)
               mode_changed = 0;
               key_value    = 0;
             } else {
-              mavlink_msg_velocity_pack(0, 0, &msg_ack, vel.vel_x, vel.vel_y, vel.rad_z);
+              mavlink_msg_velocity_pack(0, 0, &msg_ack, vel.vel_x, vel.vel_y, vel.rad_z, vel.ext_1, vel.ext_2, vel.ext_3);
             }
             tlen = mavlink_msg_to_send_buffer((uint8_t *)tbuf, &msg_ack);
             break;
