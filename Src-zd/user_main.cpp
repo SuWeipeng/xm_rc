@@ -43,6 +43,7 @@ void loop(void* parameter)
     }
     vel.rad_z = rc->rad_z(-1);
     vel.ext_1 = rc->ext_1();
+    vel.ext_3 = (key_value == 6) ? 1 : 0;
     
     rt_thread_delay(1);
   }
