@@ -8,6 +8,9 @@ progen generate -f projects.yaml -p rc_xm -t make_gcc_arm
 progen generate -f projects.yaml -p rc_zd -t iar_arm
 progen generate -f projects.yaml -p rc_zd -t make_gcc_arm
 
+progen generate -f projects.yaml -p rc_user -t iar_arm
+progen generate -f projects.yaml -p rc_user -t make_gcc_arm
+
 加入 rt-thread 精简内核
 git submodule add https://github.com/SuWeipeng/rt-thread.git Libraries/rt-thread
 

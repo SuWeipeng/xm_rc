@@ -3,6 +3,8 @@ projects:
   - project-xm.yaml
   rc_zd:
   - project-zd.yaml
+  rc_user:
+  - project-user.yaml
 settings:
   export_dir:
   - generate_project

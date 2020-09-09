@@ -1,0 +1,194 @@
+common:
+  macros:
+  - USE_RTTHREAD
+  includes:
+  - Drivers
+  - Drivers/CMSIS
+  - Drivers/CMSIS/Device
+  - Drivers/CMSIS/Device/ST
+  - Drivers/CMSIS/Device/ST/STM32F1xx
+  - Drivers/CMSIS/Device/ST/STM32F1xx/Include
+  - Drivers/CMSIS/Include
+  - Drivers/ssd1306_Driver
+  - Drivers/STM32F1xx_HAL_Driver
+  - Drivers/STM32F1xx_HAL_Driver/Inc
+  - Drivers/STM32F1xx_HAL_Driver/Inc/Legacy
+  - Inc
+  - Libraries
+  - Libraries/AP_Buffer
+  - Libraries/AP_Show
+  - Libraries/mavlink
+  - Libraries/mavlink/car
+  - Libraries/RC_Channel
+  - Libraries/rt-thread
+  - Libraries/rt-thread/board-f103c8
+  - Libraries/rt-thread/components
+  - Libraries/rt-thread/components/cplusplus
+  - Libraries/rt-thread/components/drivers
+  - Libraries/rt-thread/components/drivers/include
+  - Libraries/rt-thread/components/drivers/include/drivers/adc.h
+  - Libraries/rt-thread/components/drivers/include/drivers/pin.h
+  - Libraries/rt-thread/components/drivers/include/drivers/serial.h
+  - Libraries/rt-thread/components/drivers/include/drivers/spi.h
+  - Libraries/rt-thread/components/drivers/include/drivers/usb_common.h
+  - Libraries/rt-thread/components/drivers/include/drivers/usb_device.h
+  - Libraries/rt-thread/components/drivers/include/ipc/ringbuffer.h
+  - Libraries/rt-thread/components/finsh
+  - Libraries/rt-thread/components/libc
+  - Libraries/rt-thread/components/libc/compilers
+  - Libraries/rt-thread/components/libc/compilers/common
+  - Libraries/rt-thread/components/libc/compilers/common/sys
+  - Libraries/rt-thread/HAL_Drivers
+  - Libraries/rt-thread/HAL_Drivers/config
+  - Libraries/rt-thread/HAL_Drivers/config/f1
+  - Libraries/rt-thread/include
+  - Libraries/rt-thread/include/libc
+  - packages/nrf24l01-latest/src
+  - packages/nrf24l01-latest/examples
+  - packages/FlexibleButton-latest
+  sources:
+    Drivers:
+    - Drivers/ssd1306_Driver
+    - Drivers/STM32F1xx_HAL_Driver/Src
+    Library:
+    - Libraries/AP_Buffer
+    - Libraries/AP_Show
+    - Libraries/RC_Channel
+    RTThread:
+    - Libraries/rt-thread/board-f103c8
+    - Libraries/rt-thread/components/cplusplus/cxx_Mutex.cpp
+    - Libraries/rt-thread/components/cplusplus/cxx_Semaphore.cpp
+    - Libraries/rt-thread/components/cplusplus/cxx_Thread.cpp
+    - Libraries/rt-thread/components/cplusplus/cxx_crt.cpp
+    - Libraries/rt-thread/components/cplusplus/crt_init.c
+    - Libraries/rt-thread/components/drivers/misc/adc.c
+    - Libraries/rt-thread/components/drivers/misc/pin.c
+    - Libraries/rt-thread/components/drivers/serial/serial.c
+    - Libraries/rt-thread/components/drivers/spi/spi_core.c
+    - Libraries/rt-thread/components/drivers/spi/spi_dev.c
+    - Libraries/rt-thread/components/drivers/src/completion.c
+    - Libraries/rt-thread/components/drivers/src/dataqueue.c
+    - Libraries/rt-thread/components/drivers/src/ringbuffer.c
+    - Libraries/rt-thread/components/finsh/cmd.c
+    - Libraries/rt-thread/components/finsh/msh.c
+    - Libraries/rt-thread/components/finsh/msh_file.c
+    - Libraries/rt-thread/components/finsh/shell.c
+    - Libraries/rt-thread/components/finsh/symbol.c
+    - Libraries/rt-thread/HAL_Drivers/drv_adc.c
+    - Libraries/rt-thread/HAL_Drivers/drv_common.c
+    - Libraries/rt-thread/HAL_Drivers/drv_gpio.c
+    - Libraries/rt-thread/HAL_Drivers/drv_spi.c
+    - Libraries/rt-thread/HAL_Drivers/drv_usart.c
+    #- Libraries/rt-thread/HAL_Drivers/drv_usbd.c
+    - Libraries/rt-thread/libcpu/arm/cortex-m3/cpuport.c
+    - Libraries/rt-thread/src
+    Src:
+    - packages/nrf24l01-latest/src
+    - packages/FlexibleButton-latest
+    - Src-user
+    #VCom:
+    #- Libraries/rt-thread/components/drivers/usb/usbdevice/core/core.c
+    #- Libraries/rt-thread/components/drivers/usb/usbdevice/core/usbdevice.c
+    #- Libraries/rt-thread/components/drivers/usb/usbdevice/class/cdc_vcom.c
+  target:
+  - stm32f103cb
+tool_specific:
+  iar_arm:
+    includes:
+    - Libraries/AP_Math
+    macros:
+    - USE_HAL_DRIVER
+    - STM32F103xB 
+    sources:
+      Library:
+      - Libraries/AP_Math
+      StartUp:
+      - IDE/IAR
+      dlib:
+      - Libraries/rt-thread/components/libc/compilers/dlib/environ.c
+      - Libraries/rt-thread/components/libc/compilers/dlib/rmtx.c
+      - Libraries/rt-thread/components/libc/compilers/dlib/stdio.c
+      - Libraries/rt-thread/components/libc/compilers/dlib/syscall_close.c
+      - Libraries/rt-thread/components/libc/compilers/dlib/syscall_lseek.c
+      - Libraries/rt-thread/components/libc/compilers/dlib/syscall_mem.c
+      - Libraries/rt-thread/components/libc/compilers/dlib/syscall_open.c
+      - Libraries/rt-thread/components/libc/compilers/dlib/syscall_read.c
+      - Libraries/rt-thread/components/libc/compilers/dlib/syscall_remove.c
+      - Libraries/rt-thread/components/libc/compilers/dlib/syscall_write.c
+      libc:
+      - Libraries/rt-thread/components/libc/compilers/armlibc/libc.c
+      - Libraries/rt-thread/components/libc/compilers/common/time.c
+      RTThread:
+      - Libraries/rt-thread/libcpu/arm/cortex-m3/context_iar.S
+    linker_file:
+    - IDE/IAR/stm32f103xb_flash.icf
+  make_gcc_arm:
+    includes:
+    - Libraries/AP_Math
+    macros:
+    - USE_HAL_DRIVER
+    - STM32F103xB 
+    sources:
+      Library:
+      - Libraries/AP_Math
+      StartUp:
+      - IDE/GCC/startup_stm32f103xb-rtt.S
+      libc:
+      #- Libraries/rt-thread/components/libc/compilers/newlib/libc.c
+      - Libraries/rt-thread/components/libc/compilers/newlib/libc_syms.c
+      - Libraries/rt-thread/components/libc/compilers/newlib/stdio.c
+      - Libraries/rt-thread/components/libc/compilers/newlib/syscalls.c
+      - Libraries/rt-thread/components/libc/compilers/newlib/time.c
+      RTThread:
+      - Libraries/rt-thread/libcpu/arm/cortex-m3/context_gcc.S
+    linker_file:
+    - IDE/GCC/link.lds
+    misc:
+      standard_libraries:
+      - m
+      - gcc
+      - c
+      - nosys
+      - stdc++
+      common_flags:
+      - -O0
+      - -g
+      - -ggdb
+      - -Wall
+      - -fno-strict-aliasing
+      - -ffunction-sections
+      - -fdata-sections
+      - -fno-exceptions
+      - -fno-delete-null-pointer-checks
+      - -fmessage-length=0
+      - -fno-builtin
+      - -mthumb
+      ld_flags:
+      - -specs=nano.specs
+      - -Wl,--gc-sections
+      - -u _printf_float
+      cxx_flags:
+      - -fno-rtti
+      - -std=c++11
+      c_flags:
+      - -std=c99
+  uvision5:
+    includes:
+    - Libraries/AP_Math_mdk5
+    macros:
+    - USE_HAL_DRIVER
+    - STM32F103xB 
+    sources:
+      Library:
+      - Libraries/AP_Math_mdk5
+      StartUp:
+      - IDE/MDK5
+      libc:
+      - Libraries/rt-thread/components/libc/compilers/armlibc/libc.c
+      - Libraries/rt-thread/components/libc/compilers/armlibc/mem_std.c
+      - Libraries/rt-thread/components/libc/compilers/armlibc/stubs.c
+      - Libraries/rt-thread/components/libc/compilers/common/time.c
+      RTThread:
+      - Libraries/rt-thread/libcpu/arm/cortex-m3/context_rvds.S
+    linker_file:
+    - IDE/MDK5/stm32f103cb.sct
