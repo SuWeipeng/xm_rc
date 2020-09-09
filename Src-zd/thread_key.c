@@ -72,7 +72,7 @@ typedef enum
     USER_BUTTON_MAX
 } user_button_t;
 
-static char *enum_event_string[] = {
+static char *enum_event_string[] __attribute__((unused))= {
     ENUM_TO_STR(FLEX_BTN_PRESS_DOWN),
     ENUM_TO_STR(FLEX_BTN_PRESS_CLICK),
     ENUM_TO_STR(FLEX_BTN_PRESS_DOUBLE_CLICK),
@@ -87,7 +87,7 @@ static char *enum_event_string[] = {
     ENUM_TO_STR(FLEX_BTN_PRESS_NONE),
 };
 
-static char *enum_btn_id_string[] = {
+static char *enum_btn_id_string[] __attribute__((unused))= {
     ENUM_TO_STR(USER_BUTTON_0),
     ENUM_TO_STR(USER_BUTTON_1),
     ENUM_TO_STR(USER_BUTTON_2),
