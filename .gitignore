@@ -7,3 +7,5 @@ generate_project/*
 .project
 language.settings.xml
 *.launch
+.idea/*
+cmake-build*
