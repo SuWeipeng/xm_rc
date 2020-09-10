@@ -63,7 +63,7 @@ file(GLOB_RECURSE SOURCES
      "Drivers/CMSIS/*.*"
      "Drivers/ssd1306_Driver/*.*"
      "Drivers/STM32F1xx_HAL_Driver/*.*"
-     "Src-user/*.*"
+     "Src-zd/*.*"
      "Libraries/AP_Buffer/*.*"
      "Libraries/AP_Math/*.*"
      "Libraries/AP_Show/*.*"
