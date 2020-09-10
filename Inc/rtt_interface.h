@@ -8,12 +8,12 @@ extern "C" {
 #define AP_BUFFER_MAX_SIZE  (6)
 #include <entry.h>
 
-#define LED_R_PIN           GET_PIN(B, 7)
-#define LED_B_PIN           GET_PIN(B, 3)
-#define K1                  GET_PIN(A, 8)
-#define K2                  GET_PIN(B, 10)
-#define K3                  GET_PIN(B, 11)
-#define K4                  GET_PIN(C, 15)
+#define LED_R_PIN           GET_PIN(A, 3)
+#define LED_B_PIN           GET_PIN(A, 4)
+#define K1                  GET_PIN(A, 15)
+#define K2                  GET_PIN(B, 8)
+#define K3                  GET_PIN(B, 9)
+#define K4                  GET_PIN(B, 6)
 
 typedef union{
   struct{

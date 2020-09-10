@@ -5,7 +5,7 @@
 
 #define NRF24_DEMO_ROLE                 ROLE_PRX
 #define NRF24_DEMO_SPI_DEV_NAME         "spi10"
-#define NRF24_DEMO_CE_PIN               GET_PIN(A, 3)
+#define NRF24_DEMO_CE_PIN               GET_PIN(C, 15)
 #define NRF24_DEMO_IRQ_PIN              GET_PIN(C, 13)
 
 extern uint8_t key_value;
