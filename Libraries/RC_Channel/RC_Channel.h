@@ -4,7 +4,7 @@
 #include <stdint.h>
 #include "rtt_interface.h"
 
-#define RC_MODE_1
+//#define RC_MODE_1
 #define PCT_MODE
 
 #define ADC_CHANNEL_CNT 4

@@ -2,6 +2,7 @@
 #include <entry.h>
 #include <rtt_interface.h>
 #include <mavlink.h>
+#include <rc_def.h>
 
 #define NRF24_DEMO_ROLE                 ROLE_PRX
 #define NRF24_DEMO_SPI_DEV_NAME         "spi10"
@@ -52,6 +53,8 @@ void nrf24l01_mavlink_entry(void *param)
       mavlink_status_t mav_status;
       for(i=0; i<32; i++) {
         if(mavlink_parse_char(0, rbuf[i], &msg_receive, &mav_status)) {
+          if(msg_receive.sysid != MAV_SYSID || msg_receive.compid != MVA_COMPID)
+            break;
           switch (msg_receive.msgid) {
           case MAVLINK_MSG_ID_SIMPLE: {
             mavlink_simple_t packet;
@@ -72,7 +75,7 @@ void nrf24l01_mavlink_entry(void *param)
             mavlink_message_t msg_ack;
             
             if(key_value == 11 || cmd_cnt != 0){
-              mavlink_msg_cmd_pack( 0, 0, &msg_ack, 1 );
+              mavlink_msg_cmd_pack( MAV_SYSID, MVA_COMPID, &msg_ack, 1 );
               cmd_cnt++;
               sprintf(global_buf[2], "nrf24: cnt %d \r\n", cmd_cnt);
               if(cmd_cnt > 59){
@@ -80,11 +83,11 @@ void nrf24l01_mavlink_entry(void *param)
               }
               key_value = 0;
             } else if(mode_changed){
-              mavlink_msg_mode_pack( 0, 0, &msg_ack, car_mode, 0);
+              mavlink_msg_mode_pack( MAV_SYSID, MVA_COMPID, &msg_ack, car_mode, 0);
               mode_changed = 0;
               key_value    = 0;
             } else {
-              mavlink_msg_velocity_pack(0, 0, &msg_ack, vel.vel_x, vel.vel_y, vel.rad_z, vel.ext_1, vel.ext_2, vel.ext_3);
+              mavlink_msg_velocity_pack(MAV_SYSID, MVA_COMPID, &msg_ack, vel.vel_x, vel.vel_y, vel.rad_z, vel.ext_1, vel.ext_2, vel.ext_3);
             }
             tlen = mavlink_msg_to_send_buffer((uint8_t *)tbuf, &msg_ack);
             break;
