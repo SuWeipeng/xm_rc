@@ -2,6 +2,7 @@
 #include <entry.h>
 #include <rtt_interface.h>
 #include <mavlink.h>
+#include <rc_def.h>
 
 #define NRF24_DEMO_ROLE                 ROLE_PRX
 #define NRF24_DEMO_SPI_DEV_NAME         "spi10"
@@ -52,6 +53,8 @@ void nrf24l01_mavlink_entry(void *param)
       mavlink_status_t mav_status;
       for(i=0; i<32; i++) {
         if(mavlink_parse_char(0, rbuf[i], &msg_receive, &mav_status)) {
+          if(msg_receive.sysid != MAV_SYSID || msg_receive.compid != MVA_COMPID)
+            break;
           switch (msg_receive.msgid) {
           case MAVLINK_MSG_ID_SIMPLE: {
             mavlink_simple_t packet;
