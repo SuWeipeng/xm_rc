@@ -75,7 +75,7 @@ void nrf24l01_mavlink_entry(void *param)
             mavlink_message_t msg_ack;
             
             if(key_value == 11 || cmd_cnt != 0){
-              mavlink_msg_cmd_pack( 0, 0, &msg_ack, 1 );
+              mavlink_msg_cmd_pack( MAV_SYSID, MVA_COMPID, &msg_ack, 1 );
               cmd_cnt++;
               sprintf(global_buf[2], "nrf24: cnt %d \r\n", cmd_cnt);
               if(cmd_cnt > 59){
@@ -83,11 +83,11 @@ void nrf24l01_mavlink_entry(void *param)
               }
               key_value = 0;
             } else if(mode_changed){
-              mavlink_msg_mode_pack( 0, 0, &msg_ack, car_mode, 0);
+              mavlink_msg_mode_pack( MAV_SYSID, MVA_COMPID, &msg_ack, car_mode, 0);
               mode_changed = 0;
               key_value    = 0;
             } else {
-              mavlink_msg_velocity_pack(0, 0, &msg_ack, vel.vel_x, vel.vel_y, vel.rad_z, vel.ext_1, vel.ext_2, vel.ext_3);
+              mavlink_msg_velocity_pack(MAV_SYSID, MVA_COMPID, &msg_ack, vel.vel_x, vel.vel_y, vel.rad_z, vel.ext_1, vel.ext_2, vel.ext_3);
             }
             tlen = mavlink_msg_to_send_buffer((uint8_t *)tbuf, &msg_ack);
             break;
